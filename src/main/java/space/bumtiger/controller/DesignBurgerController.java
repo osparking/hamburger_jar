@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -22,6 +23,12 @@ import space.bumtiger.domain.Ingredient.Type;
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesignBurgerController {
+	
+	@PostMapping
+	public String processDesign(Burger burger) {
+		log.info("버거 디자인 처리: " + burger);
+		return "redirect:/orders/current";
+	}
 
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
