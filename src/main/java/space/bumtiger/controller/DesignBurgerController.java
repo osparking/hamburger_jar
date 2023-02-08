@@ -23,10 +23,13 @@ import space.bumtiger.domain.Ingredient.Type;
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesignBurgerController {
-	
+
 	@PostMapping
-	public String processDesign(Burger burger) {
-		log.info("버거 디자인 처리: " + burger);
+	public String processBurger(Burger burger,
+			@ModelAttribute BurgerOrder burgerOrder) {
+		burgerOrder.addBurger(burger);
+		log.info("만들어진 버거 처리: {}", burger);
+
 		return "redirect:/orders/current";
 	}
 
