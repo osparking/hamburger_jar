@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class Burger {
 	private String name;
-	private List<Ingredient> ingredients;
+	private List<String> ingredients;
 	
 }
