@@ -21,7 +21,7 @@ import space.bumtiger.domain.Ingredient.Type;
 @Slf4j
 @Controller
 @RequestMapping("/design")
-@SessionAttributes("tacoOrder")
+@SessionAttributes("burgerOrder")
 public class DesignBurgerController {
 
 	@PostMapping
@@ -61,7 +61,7 @@ public class DesignBurgerController {
 	}
 
 	@ModelAttribute(name = "burger")
-	public Burger taco() {
+	public Burger burger() {
 		return new Burger();
 	}
 
