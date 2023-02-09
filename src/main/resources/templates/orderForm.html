@@ -9,7 +9,7 @@
 <body>
   <form method="POST" th:action="@{/orders}" th:object="${burgerOrder}">
     <h1>당신이 버거 작품을 주문하세요:</h1>
-    <img src="@{images/hamburger.jpg}" />
+    <img th:src="@{/images/hamburger.jpg}" />
     <h3>주문되는 햄버거(들):</h3>
     <a th:href="@{/design}" id="another">햄버거 추가하기</a></br>
     <ul>
