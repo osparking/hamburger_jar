@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>햄버거 주문</title>
+<link rel="stylesheet" th:href="@{styles.css}" />
+</head>
+<body>
+  <form method="POST" th:action="@{/orders}" th:object="${burgerOrder}">
+    <h1>당신이 버거 작품을 주문하세요:</h1>
+    <img src="@{images/hamburger.jpg}" />
+    <h3>주문되는 햄버거(들):</h3>
+    <a th:href="@{/design}" id="another">햄버거 추가하기</a></br>
+    <ul>
+      <li th:each="burger: ${burgerOrder.burgers}"><span
+        th:text="${burger.name}">햄버거 이름</span>
+    </ul>
+    <h3>햄버거 배송지 주소:</h3>
+    <label for="custName">성명:</label>
+    <input type="text" th:field="*{custName}" />
+    <br />
+    
+    <label for="addrRoad">도로명 주소:</label>
+    <input type="text" th:field="*{addrRoad}" />
+    <br />
+    
+    <label for="addrDetail">상세 주소:</label>
+    <input type="text" th:field="*{addrDetail}" />
+    <br />
+    
+    <label for="addrZip">우편번호:</label>
+    <input type="text" th:field="*{addrZip}" />
+    <br />
+    
+    <h3>대금 지불 수단:</h3>
+    <label for="ccNumber">신용카드번호:</label>
+    <input type="text" th:field="*{ccNumber}" />
+    <br />
+    
+    <label for="ccExpiration">만료일:</label>
+    <input type="text" th:field="*{ccExpiration}" />
+    <br />
+    
+    <label for="ccCVV">CVV:</label>
+    <input type="text" th:field="*{ccCVV}" />
+    <br />
+    <input type="submit" value="주문 제출" />
+  </form>
+
+</body>
+</html>
