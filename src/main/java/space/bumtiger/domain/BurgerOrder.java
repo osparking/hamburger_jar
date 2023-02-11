@@ -35,6 +35,8 @@ public class BurgerOrder {
 
 	@Digits(integer = 3, fraction = 0, 
 			message = "카드 CVV 값을 반드시 입력하십시오:")
+	@Pattern(regexp = "^[0-9]{3}$", 
+	message = "카드 CVV 값을 3 자리 숫자로 입력하십시오.")
 	private String ccCVV;
   // @formatter:on
 
