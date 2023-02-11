@@ -26,7 +26,7 @@ public class BurgerOrder {
 	@NotBlank(message = "우편번호를 반드시 입력하십시오:")
 	private String addrZip;
 
-	@CreditCardNumber(message = "신용카드 번호를 반드시 입력하십시오:")
+	@CreditCardNumber(message = "신용카드 번호 형식 오류입니다!")
 	private String ccNumber;
 
 	@Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([2-9][0-9])$", 
