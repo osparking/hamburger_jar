@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.BurgerOrder;
@@ -25,12 +27,16 @@ import space.bumtiger.domain.Ingredient.Type;
 public class DesignBurgerController {
 
 	@PostMapping
-	public String processBurger(Burger burger,
+	public String processBurger(@Valid Burger burger, Errors errors,
 			@ModelAttribute BurgerOrder burgerOrder) {
-		burgerOrder.addBurger(burger);
-		log.info("만들어진 버거 처리: {}", burger);
+		if (errors.hasErrors())
+			return "design";
+		else {
+			burgerOrder.addBurger(burger);
+			log.info("만들어진 버거 처리: {}", burger);
 
-		return "redirect:/orders/current";
+			return "redirect:/orders/current";
+		}
 	}
 
 	@ModelAttribute
