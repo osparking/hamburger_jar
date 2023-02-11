@@ -36,6 +36,9 @@
     <h3>대금 지불 수단:</h3>
     <label for="ccNumber">신용카드번호:</label>
     <input type="text" th:field="*{ccNumber}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('ccNumber')}"
+      th:errors="*{ccNumber}">카드번호 오류자리</span>
     <br />
     
     <label for="ccExpiration">만료일:</label>
