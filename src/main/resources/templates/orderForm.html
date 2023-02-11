@@ -16,21 +16,38 @@
       <li th:each="burger: ${burgerOrder.burgers}"><span
         th:text="${burger.name}">햄버거 이름</span>
     </ul>
+    
+    <div th:if="${#fields.hasErrors()}">
+      <span class="validationError">다음 오류를 수정한 뒤 다시 제출하시오</span>
+    </div>
+    
     <h3>햄버거 배송지 주소:</h3>
     <label for="custName">성명:</label>
     <input type="text" th:field="*{custName}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('custName')}"
+      th:errors="*{custName}">카드번호 오류자리</span>
     <br />
     
     <label for="addrRoad">도로명 주소:</label>
     <input type="text" th:field="*{addrRoad}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('addrRoad')}"
+      th:errors="*{addrRoad}">카드번호 오류자리</span>
     <br />
     
     <label for="addrDetail">상세 주소:</label>
     <input type="text" th:field="*{addrDetail}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('addrDetail')}"
+      th:errors="*{addrDetail}">카드번호 오류자리</span>
     <br />
     
     <label for="addrZip">우편번호:</label>
     <input type="text" th:field="*{addrZip}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('addrZip')}"
+      th:errors="*{addrZip}">카드번호 오류자리</span>
     <br />
     
     <h3>대금 지불 수단:</h3>
@@ -43,11 +60,18 @@
     
     <label for="ccExpiration">만료일:</label>
     <input type="text" th:field="*{ccExpiration}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('ccExpiration')}"
+      th:errors="*{ccExpiration}">카드번호 오류자리</span>
     <br />
     
     <label for="ccCVV">CVV:</label>
     <input type="text" th:field="*{ccCVV}" />
+    <span class="validationError"
+      th:if="${#fields.hasErrors('ccCVV')}"
+      th:errors="*{ccCVV}">카드번호 오류자리</span>
     <br />
+    
     <input type="submit" value="주문 제출" />
   </form>
 </body>
