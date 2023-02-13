@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import space.bumtiger.domain.Ingredient;
@@ -41,16 +40,7 @@ public class IngredientRepositoryJdbcImpl implements IngredientRepository {
 	public Optional<Ingredient> findById(String id) {
 		List<Ingredient> results = jdbcTemplate.query(
 				"select id, name, type from Ingredient where id=?",
-				new RowMapper<Ingredient>() {
-					@Override
-					public Ingredient mapRow(ResultSet row, int rowNum)
-							throws SQLException {
-						return new Ingredient(
-								row.getString("id"), 
-								row.getString("name"),
-								Ingredient.Type.valueOf(row.getString("type")));
-					}
-				}, id);
+				this::mapRowToIngredient, id);
 		return results.size() == 0 ? Optional.empty() : 
 																 Optional.of(results.get(0));
 	}
