@@ -1,5 +1,6 @@
 package space.bumtiger.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,10 @@ import lombok.Data;
 
 @Data
 public class BurgerOrder {
+
+	private Long id;
+
+	private LocalDateTime createdAt;
 
 	// @formatter:off
 	@NotBlank(message = "(고객)성명은 반드시 입력하십시오:")
