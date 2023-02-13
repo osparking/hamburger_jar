@@ -44,12 +44,16 @@ public class IngredientRepositoryJdbcImpl implements IngredientRepository {
 		return results.size() == 0 ? Optional.empty() : 
 																 Optional.of(results.get(0));
 	}
-	// @formatter:on
 
 	@Override
 	public Ingredient save(Ingredient ingredient) {
-		// TODO Auto-generated method stub
-		return null;
+		jdbcTemplate.update(
+				"insert into Ingredient (id, name, type) values (?, ?, ?)",
+				ingredient.getId(), 
+				ingredient.getName(),
+				ingredient.getType().toString());
+		return ingredient;
 	}
+	// @formatter:on
 
 }
