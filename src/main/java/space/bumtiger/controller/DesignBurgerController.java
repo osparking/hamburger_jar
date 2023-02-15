@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Burger;
-import space.bumtiger.domain.BurgerOrder;
+import space.bumtiger.domain.CorderBurger;
 import space.bumtiger.domain.Ingredient;
 import space.bumtiger.domain.Ingredient.Type;
 import space.bumtiger.repository.IngredientRepository;
@@ -38,7 +38,7 @@ public class DesignBurgerController {
 
 	@PostMapping
 	public String processBurger(@Valid Burger burger, Errors errors,
-			@ModelAttribute BurgerOrder burgerOrder) {
+			@ModelAttribute CorderBurger burgerOrder) {
 		if (errors.hasErrors())
 			return "design";
 		else {
@@ -75,8 +75,8 @@ public class DesignBurgerController {
 	}
 
 	@ModelAttribute(name = "burgerOrder")
-	public BurgerOrder order() {
-		return new BurgerOrder();
+	public CorderBurger order() {
+		return new CorderBurger();
 	}
 
 	@ModelAttribute(name = "burger")
