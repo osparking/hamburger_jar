@@ -99,11 +99,14 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 							+ "(burger_id, ingre_id, ingre_order) values (?,?,?)",
 					burgerId, ingredient.getId(), key++);
 		}
-		// @formatter:on
 	}
 
 	private void saveCorderBurger
-			(long orderId, long burgerId, int burgerKey) {
-		// TODO Auto-generated method stub
+				(long orderId, long burgerId, int burgerKey) {
+		jdbcOperations.update(
+				"insert into corder_burger"
+						+ "(corder_id, burger_id, burger_key) values (?,?,?)",
+				orderId, burgerId, burgerKey);
 	}
+	// @formatter:on
 }
