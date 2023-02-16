@@ -11,12 +11,19 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Corder;
+import space.bumtiger.repository.CorderRepository;
 
-@Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("burgerOrder")
 public class OrderController {
+	private CorderRepository repository;
+
+	public OrderController(CorderRepository repository) {
+		super();
+		this.repository = repository;
+	}
+
 	@GetMapping("current")
 	public String orderForm() {
 		return "orderForm";
@@ -28,8 +35,9 @@ public class OrderController {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
-		log.info("주문 내용: {}", order);
+		repository.save(order);
 		sessionStatus.setComplete();
+		
 		return "redirect:/";
 	}
 }
