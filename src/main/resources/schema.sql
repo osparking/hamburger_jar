@@ -82,7 +82,7 @@ CREATE TABLE `corder_burger` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `corder_id` bigint(20) NOT NULL,
   `burger_id` bigint(20) NOT NULL,
-  `burger_order` smallint(5) unsigned DEFAULT NULL,
+  `burger_key` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `order_burger_FK` (`burger_id`),
   KEY `order_burger_FK_1` (`corder_id`),
