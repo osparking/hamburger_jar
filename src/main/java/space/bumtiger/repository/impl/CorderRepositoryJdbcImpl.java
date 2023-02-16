@@ -34,7 +34,7 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 		var pscf = new PreparedStatementCreatorFactory(
 				"insert into corder (cust_name, addr_road, addr_detail, "
 						+ "addr_zip, cc_number, cc_expiration, "
-						+ "cc_cvv, placed_at) values (?,?,?,?,?,?,?)",
+						+ "cc_cvv, placed_at) values (?,?,?,?,?,?,?,?)",
 				Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, 
 				Types.CHAR, Types.VARCHAR, Types.CHAR, 
 				Types.CHAR, Types.TIMESTAMP);
