@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.Corder;
+import space.bumtiger.domain.Ingredient;
 import space.bumtiger.repository.CorderRepository;
 
 @Repository
@@ -63,9 +64,37 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 
 		return order;
 	}
-	// @formatter:on
 
-	private void saveBurger(long orderId, int burgerKey, Burger burger) {
+	private long saveBurger(long orderId, int burgerKey, Burger burger) {
+		burger.setCreatedAt(LocalDateTime.now());
+
+		var pscf = new PreparedStatementCreatorFactory(
+				"insert into burger (name, created_at) values (?,?)", 
+				Types.VARCHAR, Types.TIMESTAMP);
+		pscf.setReturnGeneratedKeys(true);
+		
+		PreparedStatementCreator psc = 
+				pscf.newPreparedStatementCreator(
+						Arrays.asList(
+								burger.getName(), 
+								Timestamp.valueOf(burger.getCreatedAt())));
+		
+		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcOperations.update(psc, keyHolder);
+		long burgerId = keyHolder.getKey().longValue();
+		burger.setId(burgerId);
+		
+		saveBurgerIngres(burgerId, burger.getIngredients());
+		saveCorderBurgers(orderId, burgerId, burgerKey);
+		
+		return burgerId;
+	}
+	// @formatter:on
+	private void saveCorderBurgers(long orderId, long burgerId, int burgerKey) {
+		// TODO Auto-generated method stub
+	}
+
+	private void saveBurgerIngres(long tacoId, List<Ingredient> ingredients) {
 		// TODO Auto-generated method stub
 	}
 }
