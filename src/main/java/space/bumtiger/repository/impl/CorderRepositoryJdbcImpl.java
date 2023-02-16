@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.Corder;
@@ -27,6 +28,7 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 
 	// @formatter:off
 	@Override
+	@Transactional
 	public Corder save(Corder order) {
 		var pscf = new PreparedStatementCreatorFactory(
 				"insert into corder (cust_name, addr_road, addr_detail, "
