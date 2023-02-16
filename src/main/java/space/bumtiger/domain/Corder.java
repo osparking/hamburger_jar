@@ -16,7 +16,7 @@ public class Corder {
 
 	private Long id;
 
-	private LocalDateTime createdAt;
+	private LocalDateTime placedAt;
 
 	// @formatter:off
 	@NotBlank(message = "(고객)성명은 반드시 입력하십시오:")
