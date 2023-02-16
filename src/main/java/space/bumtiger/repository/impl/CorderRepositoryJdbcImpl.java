@@ -1,6 +1,8 @@
 package space.bumtiger.repository.impl;
 
+import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,12 +31,13 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 		var pscf = new PreparedStatementCreatorFactory(
 				"insert into corder (cust_name, addr_road, addr_detail, "
 						+ "addr_zip, cc_number, cc_expiration, "
-						+ "cc_cvv) values (?,?,?,?,?,?,?)",
+						+ "cc_cvv, placed_at) values (?,?,?,?,?,?,?)",
 				Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, 
 				Types.CHAR, Types.VARCHAR, Types.CHAR, 
-				Types.CHAR);
+				Types.CHAR, Types.TIMESTAMP);
 		pscf.setReturnGeneratedKeys(true);
 		
+		order.setPlacedAt(LocalDateTime.now());
 		PreparedStatementCreator psc = pscf.newPreparedStatementCreator(
 				Arrays.asList(order.getCustName(), 
 						order.getAddrRoad(),
@@ -42,7 +45,8 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 						order.getAddrZip(),
 						order.getCcNumber(), 
 						order.getCcExpiration(), 
-						order.getCcCVV()));
+						order.getCcCVV(),
+						Timestamp.valueOf(order.getPlacedAt())));
 		
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcOperations.update(psc, keyHolder);
@@ -62,5 +66,4 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 	private void saveBurger(long orderId, int burgerKey, Burger burger) {
 		// TODO Auto-generated method stub
 	}
-
 }
