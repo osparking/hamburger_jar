@@ -89,12 +89,21 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 		
 		return burgerId;
 	}
-	// @formatter:on
-	private void saveCorderBurgers(long orderId, long burgerId, int burgerKey) {
-		// TODO Auto-generated method stub
+
+	private void saveBurgerIngres
+			(long burgerId, List<Ingredient> ingredients) {
+		int key = 0;
+		for (Ingredient ingredient : ingredients) {
+			jdbcOperations.update(
+					"insert into burger_ingre"
+							+ "(burger_id, ingre_id, ingre_order) values (?,?,?)",
+					burgerId, ingredient.getId(), key++);
+		}
+		// @formatter:on
 	}
 
-	private void saveBurgerIngres(long tacoId, List<Ingredient> ingredients) {
+	private void saveCorderBurgers
+			(long orderId, long burgerId, int burgerKey) {
 		// TODO Auto-generated method stub
 	}
 }
