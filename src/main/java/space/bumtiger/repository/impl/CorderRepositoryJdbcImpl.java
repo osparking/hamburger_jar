@@ -85,7 +85,7 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 		burger.setId(burgerId);
 		
 		saveBurgerIngres(burgerId, burger.getIngredients());
-		saveCorderBurgers(orderId, burgerId, burgerKey);
+		saveCorderBurger(orderId, burgerId, burgerKey);
 		
 		return burgerId;
 	}
@@ -102,7 +102,7 @@ public class CorderRepositoryJdbcImpl implements CorderRepository {
 		// @formatter:on
 	}
 
-	private void saveCorderBurgers
+	private void saveCorderBurger
 			(long orderId, long burgerId, int burgerKey) {
 		// TODO Auto-generated method stub
 	}
