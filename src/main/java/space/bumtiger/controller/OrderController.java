@@ -10,7 +10,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import space.bumtiger.domain.CorderBurger;
+import space.bumtiger.domain.Corder;
 
 @Slf4j
 @Controller
@@ -23,7 +23,7 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String processOrder(@Valid CorderBurger order, Errors errors,
+	public String processOrder(@Valid Corder order, Errors errors,
 			SessionStatus sessionStatus) {
 		if (errors.hasErrors()) {
 			return "orderForm";

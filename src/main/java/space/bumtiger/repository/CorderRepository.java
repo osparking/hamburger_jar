@@ -1,7 +1,7 @@
 package space.bumtiger.repository;
 
-import space.bumtiger.domain.CorderBurger;
+import space.bumtiger.domain.Corder;
 
 public interface CorderRepository {
-	CorderBurger save(CorderBurger order);
+	Corder save(Corder order);
 }
