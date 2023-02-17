@@ -48,20 +48,6 @@ public class DesignBurgerController {
 			return "redirect:/orders/current";
 		}
 	}
-	/*
-	Arrays.asList(
-	new Ingredient("BNBD", "번빵", Type.BREAD),
-	new Ingredient("RCBD", "쌀빵", Type.BREAD),
-	new Ingredient("BLGG", "불고기", Type.PROTEIN),
-	new Ingredient("CHBM", "닭가슴살", Type.PROTEIN),
-	new Ingredient("SHMP", "새우", Type.PROTEIN),
-	new Ingredient("TMTO", "토마토", Type.VEGGIES),
-	new Ingredient("LETC", "상추", Type.VEGGIES),
-	new Ingredient("CDCS", "체다치즈", Type.CHEESE),
-	new Ingredient("MLCS", "모짜렐라치즈", Type.CHEESE),
-	new Ingredient("BGSC", "버거소스", Type.SAUCE),
-	new Ingredient("BBSC", "바베큐소스", Type.SAUCE));
-	 */
 
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
