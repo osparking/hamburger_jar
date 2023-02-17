@@ -30,12 +30,12 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String processOrder(@Valid Corder order, Errors errors,
+	public String processOrder(@Valid Corder burgerOrder, Errors errors,
 			SessionStatus sessionStatus) {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
-		repository.save(order);
+		repository.save(burgerOrder);
 		sessionStatus.setComplete();
 		
 		return "redirect:/";
