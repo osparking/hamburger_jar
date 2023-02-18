@@ -1,11 +1,8 @@
 package space.bumtiger.controller;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,7 +23,7 @@ import space.bumtiger.repository.IngredientRepository;
 @Slf4j
 @Controller
 @RequestMapping("/design")
-@SessionAttributes("burgerOrder")
+@SessionAttributes({ "corder" })
 public class DesignBurgerController {
 
 	private IngredientRepository repository;
@@ -38,11 +35,11 @@ public class DesignBurgerController {
 
 	@PostMapping
 	public String processBurger(@Valid Burger burger, Errors errors,
-			@ModelAttribute Corder burgerOrder) {
+			@ModelAttribute Corder corder) {
 		if (errors.hasErrors())
 			return "design";
 		else {
-			burgerOrder.addBurger(burger);
+			corder.addBurger(burger);
 			log.info("만들어진 버거 처리: {}", burger);
 
 			return "redirect:/orders/current";
@@ -60,8 +57,8 @@ public class DesignBurgerController {
 		}
 	}
 
-	@ModelAttribute(name = "burgerOrder")
-	public Corder order() {
+	@ModelAttribute(name = "corder")
+	public Corder corder() {
 		return new Corder();
 	}
 
