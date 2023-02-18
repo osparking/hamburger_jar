@@ -27,8 +27,16 @@ public class OrderController {
 
 	@GetMapping("current")
 	public String orderForm(Model model) {
+		model.addAttribute("ccNumber", ccNumber);
+		model.addAttribute("ccExpiration", ccExpiration);
 		return "orderForm";
 	}
+
+	@Value("${spring.cc.number}")
+	public String ccNumber;
+
+	@Value("${spring.cc.ccExpiration}")
+	public String ccExpiration;
 
 	@PostMapping
 	public String processOrder(@Valid Corder corder, Errors errors,

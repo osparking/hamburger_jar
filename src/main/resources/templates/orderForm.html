@@ -52,21 +52,24 @@
     
     <h3>대금 지불 수단:</h3>
     <label for="ccNumber">신용카드번호:</label>
-    <input type="text" th:field="*{ccNumber}" />
+     
+    <input type="text" th:field="*{ccNumber}" th:placeholder="${ccNumber}"/>
     <span class="validationError"
       th:if="${#fields.hasErrors('ccNumber')}"
       th:errors="*{ccNumber}">카드번호 오류자리</span>
     <br />
-    
+
     <label for="ccExpiration">만료일:</label>
-    <input type="text" th:field="*{ccExpiration}" />
+    <input type="text" th:field="*{ccExpiration}" 
+      th:placeholder="${ccExpiration}" />
     <span class="validationError"
       th:if="${#fields.hasErrors('ccExpiration')}"
       th:errors="*{ccExpiration}">카드번호 오류자리</span>
     <br />
     
     <label for="ccCVV">CVV:</label>
-    <input type="text" th:field="*{ccCVV}" />
+    <input type="text" th:field="*{ccCVV}" 
+      th:placeholder="123" />
     <span class="validationError"
       th:if="${#fields.hasErrors('ccCVV')}"
       th:errors="*{ccCVV}">카드번호 오류자리</span>
