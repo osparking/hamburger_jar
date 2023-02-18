@@ -32,10 +32,10 @@ public class OrderController {
 		return "orderForm";
 	}
 
-	@Value("${spring.cc.number}")
+	@Value("${credential.ccNumber}")
 	public String ccNumber;
 
-	@Value("${spring.cc.ccExpiration}")
+	@Value("${credential.ccExpiration}")
 	public String ccExpiration;
 
 	@PostMapping
