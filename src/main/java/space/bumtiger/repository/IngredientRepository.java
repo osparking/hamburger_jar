@@ -1,10 +1,12 @@
 package space.bumtiger.repository;
 
 import java.util.Optional;
-
 import space.bumtiger.domain.Ingredient;
 
-public interface IngredientRepository {
+import org.springframework.data.repository.Repository;
+
+public interface IngredientRepository 
+				extends Repository<Ingredient, String>{
 
 	Iterable<Ingredient> findAll();
 
