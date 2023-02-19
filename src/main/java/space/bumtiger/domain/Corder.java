@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -12,8 +14,10 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
+@Table
 public class Corder {
 
+	@Id
 	private Long id;
 
 	private LocalDateTime placedAt;
