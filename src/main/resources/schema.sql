@@ -1,4 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.7.3-MariaDB, for Win64 (AMD64)
+-- MariaDB dump 10.19  Distrib 10.10.2-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: hamburger
 -- ------------------------------------------------------
@@ -23,31 +23,31 @@ DROP TABLE IF EXISTS `burger`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `burger` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `burger_ingre`
+-- Table structure for table `burger_ingredient`
 --
 
-DROP TABLE IF EXISTS `burger_ingre`;
+DROP TABLE IF EXISTS `burger_ingredient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `burger_ingre` (
-  `burger_id` bigint(20) NOT NULL,
-  `ingre_id` char(4) NOT NULL,
-  `ingre_order` tinyint(3) unsigned DEFAULT NULL,
-  UNIQUE KEY `burger_ingre_un` (`burger_id`,`ingre_id`),
-  KEY `burger_ingre_FK` (`ingre_id`),
-  CONSTRAINT `burger_ingre_FK` FOREIGN KEY (`ingre_id`) 
-			REFERENCES `ingredient` (`id`),
-  CONSTRAINT `burger_ingre_FK_1` FOREIGN KEY (`burger_id`) 
-			REFERENCES `burger` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `burger_ingredient` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `burger` int(11) DEFAULT NULL,
+  `burger_key` smallint(6) DEFAULT NULL,
+  `ingredient` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `burger_ID_FK2` (`burger`),
+  KEY `ingredient_ID_FK2` (`ingredient`),
+  CONSTRAINT `burger_ID_FK2` FOREIGN KEY (`burger`) REFERENCES `burger` (`id`),
+  CONSTRAINT `ingredient_ID_FK2` FOREIGN KEY (`ingredient`) REFERENCES `ingredient` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `corder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `corder` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `cust_name` varchar(40) DEFAULT NULL,
   `addr_road` varchar(100) DEFAULT NULL,
   `addr_detail` varchar(40) DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `corder` (
   `cc_cvv` char(3) DEFAULT NULL,
   `placed_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,18 +79,16 @@ DROP TABLE IF EXISTS `corder_burger`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `corder_burger` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `corder_id` bigint(20) NOT NULL,
-  `burger_id` bigint(20) NOT NULL,
-  `burger_key` smallint(5) unsigned DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `corder` int(11) DEFAULT NULL,
+  `corder_key` smallint(6) DEFAULT NULL,
+  `burger` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `order_burger_FK` (`burger_id`),
-  KEY `order_burger_FK_1` (`corder_id`),
-  CONSTRAINT `order_burger_FK` FOREIGN KEY (`burger_id`) 
-			REFERENCES `burger` (`id`),
-  CONSTRAINT `order_burger_FK_1` FOREIGN KEY (`corder_id`) 
-			REFERENCES `corder` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `corder_burger_FK` (`corder`),
+  KEY `burger_ID_FK` (`burger`),
+  CONSTRAINT `burger_ID_FK` FOREIGN KEY (`burger`) REFERENCES `burger` (`id`),
+  CONSTRAINT `corder_burger_FK` FOREIGN KEY (`corder`) REFERENCES `corder` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,4 +119,4 @@ CREATE TABLE `ingredient` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-15 20:31:42
+-- Dump completed on 2023-02-22 22:18:18
