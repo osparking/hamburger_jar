@@ -18,7 +18,7 @@ import lombok.Data;
 public class Corder {
 
 	@Id
-	private Long id;
+	private Integer id;
 
 	private LocalDateTime placedAt;
 
@@ -49,9 +49,9 @@ public class Corder {
 	private String ccCVV;
   // @formatter:on
 
-	private final List<Burger> burgers = new ArrayList<>();
+	private final List<CorderBurger> burgers = new ArrayList<>();
 
-	public void addBurger(Burger burger) {
+	public void addBurger(CorderBurger burger) {
 		burgers.add(burger);
 	}
 }
