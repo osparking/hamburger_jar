@@ -30,13 +30,13 @@ import space.bumtiger.repository.IngredientRepository;
 @SessionAttributes({ "corder" })
 public class BurgerController {
 
-	private IngredientRepository repository;
+	private IngredientRepository ingredientRepository;
 	private BurgerRepository burgerRepository;
 	private BurgerIngreRepository burgerIngreRepository;
 
 	public BurgerController(IngredientRepository repository) {
 		super();
-		this.repository = repository;
+		this.ingredientRepository = repository;
 	}
 
 	@PostMapping
@@ -77,7 +77,7 @@ public class BurgerController {
 
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
-		Iterable<Ingredient> ingredients = repository.findAll();
+		Iterable<Ingredient> ingredients = ingredientRepository.findAll();
 
 		Type[] types = Ingredient.Type.values();
 		for (Type type : types) {
