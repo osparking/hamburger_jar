@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.Corder;
+import space.bumtiger.domain.CorderBurger;
 import space.bumtiger.domain.Ingredient;
 import space.bumtiger.domain.Ingredient.Type;
 import space.bumtiger.repository.IngredientRepository;
@@ -39,7 +40,14 @@ public class BurgerController {
 		if (errors.hasErrors())
 			return "design";
 		else {
-			corder.addBurger(burger);
+			short key = 1;
+			var corderBurger = new CorderBurger();
+
+			corderBurger.setCorder(corder.getId());
+			key = (short) (corder.getBurgers().size() + 1);
+			corderBurger.setCorderKey(key);
+			
+			corder.addBurger(corderBurger);
 			log.info("만들어진 버거 처리: {}", burger);
 
 			return "redirect:/orders/current";
