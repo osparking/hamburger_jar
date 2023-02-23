@@ -34,9 +34,13 @@ public class BurgerController {
 	private BurgerRepository burgerRepository;
 	private BurgerIngreRepository burgerIngreRepository;
 
-	public BurgerController(IngredientRepository repository) {
+	public BurgerController(IngredientRepository ingredientRepository,
+			BurgerRepository burgerRepository,
+			BurgerIngreRepository burgerIngreRepository) {
 		super();
-		this.ingredientRepository = repository;
+		this.ingredientRepository = ingredientRepository;
+		this.burgerRepository = burgerRepository;
+		this.burgerIngreRepository = burgerIngreRepository;
 	}
 
 	@PostMapping
