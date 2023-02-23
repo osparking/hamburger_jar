@@ -29,7 +29,7 @@ import space.bumtiger.repository.IngredientRepository;
 @Slf4j
 @Controller
 @RequestMapping("/design")
-@SessionAttributes({ "corder" })
+@SessionAttributes({ "corder", "burgerNames" })
 public class BurgerController {
 
 	private IngredientRepository ingredientRepository;
