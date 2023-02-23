@@ -71,9 +71,9 @@ public class BurgerController {
 			var corderBurger = new CorderBurger();
 			corderBurger.setCorder(corder.getId());
 			key = (short) (corder.getBurgers().size() + 1);
-			corderBurger.setCorderKey(key);
+			corderBurger.setBurger(savedBurger.getId());
 			corder.addBurger(corderBurger);
-			log.info("만들어진 버거 처리: {}", burger);
+			log.info("저장된 버거 정보: {}", savedBurger);
 
 			return "redirect:/orders/current";
 		}
