@@ -24,11 +24,11 @@ import space.bumtiger.repository.IngredientRepository;
 @Controller
 @RequestMapping("/design")
 @SessionAttributes({ "corder" })
-public class DesignBurgerController {
+public class BurgerController {
 
 	private IngredientRepository repository;
 
-	public DesignBurgerController(IngredientRepository repository) {
+	public BurgerController(IngredientRepository repository) {
 		super();
 		this.repository = repository;
 	}
