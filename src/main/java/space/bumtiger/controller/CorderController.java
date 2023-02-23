@@ -17,10 +17,10 @@ import space.bumtiger.repository.CorderRepository;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes({ "corder" })
-public class OrderController {
+public class CorderController {
 	private CorderRepository repository;
 
-	public OrderController(CorderRepository repository) {
+	public CorderController(CorderRepository repository) {
 		super();
 		this.repository = repository;
 	}
