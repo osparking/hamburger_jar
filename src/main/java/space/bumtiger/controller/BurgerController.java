@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Burger;
+import space.bumtiger.domain.BurgerIngredient;
 import space.bumtiger.domain.Corder;
 import space.bumtiger.domain.CorderBurger;
 import space.bumtiger.domain.Ingredient;
 import space.bumtiger.domain.Ingredient.Type;
+import space.bumtiger.repository.BurgerIngreRepository;
 import space.bumtiger.repository.BurgerRepository;
 import space.bumtiger.repository.IngredientRepository;
 
@@ -30,6 +32,7 @@ public class BurgerController {
 
 	private IngredientRepository repository;
 	private BurgerRepository burgerRepository;
+	private BurgerIngreRepository burgerIngreRepository;
 
 	public BurgerController(IngredientRepository repository) {
 		super();
@@ -49,7 +52,19 @@ public class BurgerController {
 			 * 이 버거 자체 저장
 			 */
 			Burger savedBurger = burgerRepository.save(burger);
+
+			/**
+			 * 이 버거에 들어가는 재료(들) 저장
+			 */
+			for (BurgerIngredient burgerIngredient : burger.getIngredients()) {
+			        burgerIngredient.setBurger(savedBurger.getId());
+			        burgerIngredient.setBurgerKey(key++);
+			        burgerIngreRepository.save(burgerIngredient);
+			}
 			
+			/**
+			 * 고객 주문(Corder: Customer Order)에 이 버거 추가
+			 */
 			corderBurger.setCorder(corder.getId());
 			key = (short) (corder.getBurgers().size() + 1);
 			corderBurger.setCorderKey(key);
