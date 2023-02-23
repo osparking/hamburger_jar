@@ -47,11 +47,12 @@ public class BurgerController {
 
 	@PostMapping
 	public String processBurger(@Valid Burger burger, Errors errors,
-			@ModelAttribute Corder corder) {
+			@ModelAttribute Corder corder,
+			@ModelAttribute ArrayList<String> burgerNames) {
 		if (errors.hasErrors())
 			return "design";
 		else {
-
+			burgerNames.add(burger.getName());
 			/**
 			 * 이 버거 자체 저장
 			 */
