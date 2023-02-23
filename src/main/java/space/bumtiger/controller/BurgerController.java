@@ -45,8 +45,6 @@ public class BurgerController {
 		if (errors.hasErrors())
 			return "design";
 		else {
-			short key = 1;
-			var corderBurger = new CorderBurger();
 
 			/**
 			 * 이 버거 자체 저장
@@ -56,6 +54,7 @@ public class BurgerController {
 			/**
 			 * 이 버거에 들어가는 재료(들) 저장
 			 */
+			short key = 1;
 			for (BurgerIngredient burgerIngredient : burger.getIngredients()) {
 			        burgerIngredient.setBurger(savedBurger.getId());
 			        burgerIngredient.setBurgerKey(key++);
@@ -65,6 +64,7 @@ public class BurgerController {
 			/**
 			 * 고객 주문(Corder: Customer Order)에 이 버거 추가
 			 */
+			var corderBurger = new CorderBurger();
 			corderBurger.setCorder(corder.getId());
 			key = (short) (corder.getBurgers().size() + 1);
 			corderBurger.setCorderKey(key);
