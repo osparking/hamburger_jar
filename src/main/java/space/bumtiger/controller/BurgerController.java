@@ -19,6 +19,7 @@ import space.bumtiger.domain.Corder;
 import space.bumtiger.domain.CorderBurger;
 import space.bumtiger.domain.Ingredient;
 import space.bumtiger.domain.Ingredient.Type;
+import space.bumtiger.repository.BurgerRepository;
 import space.bumtiger.repository.IngredientRepository;
 
 @Slf4j
@@ -28,6 +29,7 @@ import space.bumtiger.repository.IngredientRepository;
 public class BurgerController {
 
 	private IngredientRepository repository;
+	private BurgerRepository burgerRepository;
 
 	public BurgerController(IngredientRepository repository) {
 		super();
@@ -43,10 +45,14 @@ public class BurgerController {
 			short key = 1;
 			var corderBurger = new CorderBurger();
 
+			/**
+			 * 이 버거 자체 저장
+			 */
+			Burger savedBurger = burgerRepository.save(burger);
+			
 			corderBurger.setCorder(corder.getId());
 			key = (short) (corder.getBurgers().size() + 1);
 			corderBurger.setCorderKey(key);
-			
 			corder.addBurger(corderBurger);
 			log.info("만들어진 버거 처리: {}", burger);
 
