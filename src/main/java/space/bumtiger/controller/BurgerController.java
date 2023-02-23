@@ -1,5 +1,7 @@
 package space.bumtiger.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -78,7 +80,12 @@ public class BurgerController {
 			return "redirect:/orders/current";
 		}
 	}
-
+	
+	@ModelAttribute(name = "burgerNames")
+	public List<String> burgerNames() {
+	        return new ArrayList<String>();
+	}
+	
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
 		Iterable<Ingredient> ingredients = ingredientRepository.findAll();
