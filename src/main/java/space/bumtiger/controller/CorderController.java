@@ -12,6 +12,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import space.bumtiger.domain.Corder;
+import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
 
 @Controller
@@ -19,10 +20,13 @@ import space.bumtiger.repository.CorderRepository;
 @SessionAttributes({ "corder" })
 public class CorderController {
 	private CorderRepository repository;
+	private CorderBurgerRepository cbRepository;
 
-	public CorderController(CorderRepository repository) {
+	public CorderController(CorderRepository corderRepository,
+			CorderBurgerRepository corderBurgerRepository) {
 		super();
-		this.repository = repository;
+		this.repository = corderRepository;
+		this.cbRepository = corderBurgerRepository;
 	}
 
 	@GetMapping("current")
@@ -44,7 +48,20 @@ public class CorderController {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
-		repository.save(corder);
+		/** 
+		 * 주문 자체 저장 
+		 */
+		Corder corderSaved = repository.save(corder);
+		
+		/** 
+		 * 주문되는 버거정보 CorderBurger 테이블에 저장
+		 */
+		short key = 1;
+		for (var corderBurger : corder.getBurgers()) {
+			corderBurger.setCorder(corderSaved.getId());
+			corderBurger.setCorderKey(key++);
+			cbRepository.save(corderBurger);
+		}
 		sessionStatus.setComplete();
 
 		return "redirect:/";
