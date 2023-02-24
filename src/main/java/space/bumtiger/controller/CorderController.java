@@ -17,7 +17,7 @@ import space.bumtiger.repository.CorderRepository;
 
 @Controller
 @RequestMapping("/orders")
-@SessionAttributes({ "corder" })
+@SessionAttributes({ "corder", "burgerNames" })
 public class CorderController {
 	private CorderRepository repository;
 	private CorderBurgerRepository cbRepository;
