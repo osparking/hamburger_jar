@@ -13,8 +13,8 @@
     <h3>주문되는 햄버거(들):</h3>
     <a th:href="@{/design}" id="another">햄버거 추가하기</a></br>
     <ul>
-      <li th:each="burger: ${corder.burgers}"><span
-        th:text="${burger.name}">햄버거 이름</span>
+      <li th:each="burgerName: ${burgerNames}"><span
+        th:text="${burgerName}">햄버거 이름</span>
     </ul>
     
     <div th:if="${#fields.hasErrors()}">
