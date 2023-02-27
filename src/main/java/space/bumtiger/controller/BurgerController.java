@@ -73,7 +73,6 @@ public class BurgerController {
 			 */
 			var corderBurger = new CorderBurger();
 			corderBurger.setCorder(corder.getId());
-			key = (short) (corder.getBurgers().size() + 1);
 			corderBurger.setBurger(savedBurger.getId());
 			corder.addBurger(corderBurger);
 			log.info("저장된 버거 정보: {}", savedBurger);
