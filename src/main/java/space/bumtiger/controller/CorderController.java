@@ -1,5 +1,7 @@
 package space.bumtiger.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,7 @@ public class CorderController {
 		/** 
 		 * 주문 자체 저장 
 		 */
+		corder.setPlacedAt(LocalDateTime.now());
 		Corder corderSaved = repository.save(corder);
 		
 		/** 
