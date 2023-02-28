@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import space.bumtiger.domain.Burger;
@@ -48,10 +49,13 @@ public class BurgerController {
 	@PostMapping
 	public String processBurger(@Valid Burger burger, Errors errors,
 			@ModelAttribute Corder corder,
-			@ModelAttribute ArrayList<String> burgerNames) {
+			HttpSession session) {
 		if (errors.hasErrors())
 			return "design";
 		else {
+			@SuppressWarnings("unchecked")
+			List<String> burgerNames = (List<String>) session
+					.getAttribute("burgerNames");			
 			burgerNames.add(burger.getName());
 			/**
 			 * 이 버거 자체 저장
