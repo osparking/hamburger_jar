@@ -1,5 +1,5 @@
 ### password ###
-application-prod.properties
+application-prod.yml
 
 HELP.md
 target/
