@@ -27,7 +27,7 @@ CREATE TABLE `burger` (
   `name` varchar(40) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `burger_ingredient` (
   KEY `ingredient_ID_FK2` (`ingredient`),
   CONSTRAINT `burger_ID_FK2` FOREIGN KEY (`burger`) REFERENCES `burger` (`id`),
   CONSTRAINT `ingredient_ID_FK2` FOREIGN KEY (`ingredient`) REFERENCES `ingredient` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `corder` (
   `cc_cvv` char(3) DEFAULT NULL,
   `placed_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,9 +86,9 @@ CREATE TABLE `corder_burger` (
   PRIMARY KEY (`id`),
   KEY `corder_burger_FK` (`corder`),
   KEY `burger_ID_FK` (`burger`),
-  CONSTRAINT `burger_ID_FK` FOREIGN KEY (`burger`) REFERENCES `burger` (`id`),
+  CONSTRAINT `burger_ID_FK` FOREIGN KEY (`burger`) REFERENCES `burger` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `corder_burger_FK` FOREIGN KEY (`corder`) REFERENCES `corder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,6 +107,27 @@ CREATE TABLE `ingredient` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) DEFAULT NULL,
+  `password` varchar(250) DEFAULT NULL,
+  `fullname` varchar(40) DEFAULT NULL,
+  `addr_road` varchar(100) DEFAULT NULL,
+  `addr_detail` varchar(50) DEFAULT NULL,
+  `addr_zip` varchar(10) DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_unique` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping routines for database 'hamburger'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -119,4 +140,4 @@ CREATE TABLE `ingredient` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-22 22:18:18
+-- Dump completed on 2023-03-11 11:45:59
