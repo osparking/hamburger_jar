@@ -1,18 +1,14 @@
 package space.bumtiger.security;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import space.bumtiger.domain.User;
+import space.bumtiger.repository.UserRepository;
 
 @Configuration
 public class SecurityConfiguration {
@@ -22,12 +18,18 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	UserDetailsService userDetailsService(PasswordEncoder encoder) {
-		List<UserDetails> users = new ArrayList<>();
-		users.add(new User("hong", encoder.encode("1234"),
-				Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-		users.add(new User("park", encoder.encode("1234"),
-				Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-		return (UserDetailsService) new InMemoryUserDetailsManager(users);
+	UserDetailsService userDetailsService(UserRepository repository) {
+
+		return username -> {
+			User user = repository.findByUsername(username);
+			if (user == null) {
+				String msg = username + "은 존재하지 않는 사용자입니다.";
+				throw new UsernameNotFoundException(msg);
+			} else {
+				return user;
+			}
+		};
+
 	}
+
 }
