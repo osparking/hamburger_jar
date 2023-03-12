@@ -14,10 +14,17 @@ import space.bumtiger.repository.UserRepository;
 
 @Configuration
 public class SecurityConfiguration {
+	// @formatter:off
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(
+				(authorize) -> authorize
+					.requestMatchers("/design", "/orders").hasRole("USER")
+					.requestMatchers("/", "/**").permitAll());
+
 		return http.build();
 	}
+	// @formatter:on
 
 	@Bean
 	PasswordEncoder passwordEncoder() {
