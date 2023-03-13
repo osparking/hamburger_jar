@@ -18,9 +18,18 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
-				(authorize) -> authorize
-					.requestMatchers("/design", "/orders").hasRole("USER")
-					.requestMatchers("/", "/**").permitAll());
+				(authorize) -> {
+					try {
+						authorize
+							.requestMatchers("/design", "/orders").hasRole("USER")
+							.requestMatchers("/", "/**").permitAll()
+						.and()
+							.formLogin()
+								.loginPage("/login");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
 
 		return http.build();
 	}
