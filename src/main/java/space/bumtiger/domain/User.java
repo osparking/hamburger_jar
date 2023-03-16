@@ -10,27 +10,40 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Table
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;
 	
-	private final String username;
-  private final String password;
-  private final String fullname;
-  private final String addrRoad;
-  private final String addrDetail;
-  private final String addrZip;
-  private final String phoneNumber;
+	private String username;
+  private String password;
+  private String fullname;
+  private String addrRoad;
+  private String addrDetail;
+  private String addrZip;
+  private String phoneNumber;
+
+	public User(String username, String password, String fullname,
+			String addrRoad, String addrDetail, String addrZip, 
+			String phoneNumber) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.addrRoad = addrRoad;
+		this.addrDetail = addrDetail;
+		this.addrZip = addrZip;
+		this.phoneNumber = phoneNumber;
+	}	
   
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,6 +64,6 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}	
+	}
 
 }
