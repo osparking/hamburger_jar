@@ -25,7 +25,11 @@ public class SecurityConfiguration {
 							.requestMatchers("/", "/**").permitAll()
 						.and()
 							.formLogin()
-								.loginPage("/login");
+								.loginPage("/login")
+								
+						.and()
+						  .oauth2Login();
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
