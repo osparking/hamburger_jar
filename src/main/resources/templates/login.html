@@ -12,8 +12,14 @@
     <div th:if="${error}">
     	로그인 실패 - 아이디와 비밀번호를 확인하세요.
     </div>
-    
-    <p>새 손님? 이용하려면, <a th:href="@{/register}">등록(클릭)</a> 하세요.</p>    
+	<div>
+		<h4>
+			<a th:href="@{/oauth2/authorization/facebook}"
+				>페이스북으로 로그인</a>
+		</h4>
+	</div>
+
+	<p>새 손님? 이용하려면, <a th:href="@{/register}">등록(클릭)</a> 하세요.</p>    
     <form method="POST" th:action="@{/login}" id="loginForm">
         <label for="username">아이디: </label>
         <input type="text" name="username" id="username"/><br/>
