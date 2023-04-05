@@ -13,28 +13,32 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import space.bumtiger.security.Provider;
 
 @Data
 @Table
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @AllArgsConstructor
 public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;
-	
+
 	private String username;
-  private String password;
-  private String fullname;
-  private String addrRoad;
-  private String addrDetail;
-  private String addrZip;
-  private String phoneNumber;
+	private String password;
+	private String fullname;
+	private String addrRoad;
+	private String addrDetail;
+	private String addrZip;
+	private String phoneNumber;
+	private String role;
+	@SuppressWarnings("unused")
+	private boolean enabled;
+	private Provider provider;
 
 	public User(String username, String password, String fullname,
-			String addrRoad, String addrDetail, String addrZip, 
-			String phoneNumber) {
+			String addrRoad, String addrDetail, String addrZip, String phoneNumber) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -43,24 +47,28 @@ public class User implements UserDetails {
 		this.addrDetail = addrDetail;
 		this.addrZip = addrZip;
 		this.phoneNumber = phoneNumber;
-	}	
-  
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
 	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isEnabled() {
 		return true;
