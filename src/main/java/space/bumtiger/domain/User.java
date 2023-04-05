@@ -37,6 +37,16 @@ public class User implements UserDetails {
 	private boolean enabled;
 	private Provider provider;
 
+	public User(String username, String password, String role, boolean enabled,
+			Provider provider) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.enabled = enabled;
+		this.provider = provider;
+	}
+
 	public User(String username, String password, String fullname,
 			String addrRoad, String addrDetail, String addrZip, String phoneNumber) {
 		super();
