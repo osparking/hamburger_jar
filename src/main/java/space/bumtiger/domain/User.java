@@ -60,6 +60,13 @@ public class User implements UserDetails {
 		this.addrDetail = addrDetail;
 		this.addrZip = addrZip;
 		this.phoneNumber = phoneNumber;
+		if ("admin".equals(this.username)) {
+			this.role = "ROLE_USER,ROLE_ADMIN";
+		} else {
+			this.role = "ROLE_USER";
+		}
+		this.enabled = true;
+		this.provider = Provider.NONE;
 	}
 
 	@Override
