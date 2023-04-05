@@ -2,6 +2,9 @@ package space.bumtiger.domain;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -61,7 +64,10 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+		List<GrantedAuthority> convertedRankList = Stream.of(this.role.split(","))
+				.map(String::trim).map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+		return convertedRankList;
 	}
 
 	@Override
