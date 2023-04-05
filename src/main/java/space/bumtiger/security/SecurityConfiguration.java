@@ -28,6 +28,7 @@ public class SecurityConfiguration {
 		http.authorizeHttpRequests(
 					authorize -> authorize
 						.requestMatchers("/design", "/orders").hasRole("USER")
+						.requestMatchers("/ingredient/**").hasRole("ADMIN")
 						.requestMatchers("/", "/**").permitAll())
 			  .formLogin().loginPage("/login")
 				.and()
