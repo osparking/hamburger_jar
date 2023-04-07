@@ -1,9 +1,12 @@
 package space.bumtiger.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +23,11 @@ public class CustomOAuth2User implements OAuth2User {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return oAuth2User.getAuthorities();
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		oAuth2User.getAuthorities().forEach(ga -> authorities.add(ga));
+		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+		return authorities;
 	}
 
 	@Override
