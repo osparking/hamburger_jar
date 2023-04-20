@@ -6,7 +6,7 @@ spring:
       path: /h2-console
 
   datasource:
-    url: jdbc:h2:mem:moviesdb # In-Memory mode 
+    url: jdbc:h2:mem:hamburger # In-Memory mode 
     username: root
     password: 1234
     driverClassName: org.h2.Driver # spring - h2 연결
@@ -14,7 +14,6 @@ spring:
   sql:
     init:
       schema-locations: classpath:schema_h2.sql
-      data-locations: classpath:data.sql
 
 logging:
   level:
