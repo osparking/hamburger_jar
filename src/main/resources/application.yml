@@ -1,4 +1,6 @@
 spring:
   profiles:
-    include: prod
+    include: 
+      - prod
+      - test
     active: test
