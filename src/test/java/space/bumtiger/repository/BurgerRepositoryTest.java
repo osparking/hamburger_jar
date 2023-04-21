@@ -20,7 +20,7 @@ class BurgerRepositoryTest {
 	@Autowired
 	private BurgerRepository repository;
 	private Burger cheeseBurger;
-	
+
 	@Test
 	@DisplayName("햄버거 - 저장소 - 저장 성공!")
 	void testSave() {
@@ -34,16 +34,27 @@ class BurgerRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("햄버거 - 저장소 - ID 찾기 성공!")
 	void testFindById() {
-		fail("Not yet implemented");
+		// Arrange
+		var burger = repository.save(cheeseBurger);
+
+		// Act
+		var foundBurger = repository.findById(burger.getId());
+
+		// Assert
+		assertNotNull(foundBurger);
+		assertThat(foundBurger.get().getId()).isEqualTo(burger.getId());
 	}
 
 	@Test
+	@DisplayName("햄버거 - 저장소 - 모두 찾기 성공!")
 	void testFindAll() {
 		fail("Not yet implemented");
 	}
 
 	@Test
+	@DisplayName("햄버거 - 저장소 - ID 삭제 성공!")
 	void testDeleteById() {
 		fail("Not yet implemented");
 	}
