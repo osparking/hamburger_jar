@@ -2,7 +2,6 @@ package space.bumtiger.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -72,7 +71,23 @@ class BurgerRepositoryTest {
 	@Test
 	@DisplayName("햄버거 - 저장소 - ID 삭제 성공!")
 	void testDeleteById() {
-		fail("Not yet implemented");
+		// arrange
+		Burger burger2del = repository.save(cheeseBurger);
+		repository.save(bulgogiBurger);
+		
+		// act
+		repository.delete(burger2del);
+		
+		// assert
+		var optionalBurger = repository.findById(burger2del.getId());
+		assertThat(optionalBurger.isEmpty());
+		
+		var burgers = repository.findAll();
+		int size = 0;
+		if (burgers instanceof Collection<Burger>) {
+			size = ((Collection<?>) burgers).size();
+			assertThat(size).isEqualTo(1);
+		}
 	}
 
 	@BeforeEach
