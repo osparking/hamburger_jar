@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,7 @@ class BurgerRepositoryTest {
 	@Autowired
 	private BurgerRepository repository;
 	private Burger cheeseBurger;
+	private Burger bulgogiBurger;
 
 	@Test
 	@DisplayName("햄버거 - 저장소 - 저장 성공!")
@@ -50,7 +52,21 @@ class BurgerRepositoryTest {
 	@Test
 	@DisplayName("햄버거 - 저장소 - 모두 찾기 성공!")
 	void testFindAll() {
-		fail("Not yet implemented");
+		// arrange
+		// - beforeEach 메소드에 의해서 일부 수행
+		repository.save(cheeseBurger);
+		repository.save(bulgogiBurger);
+
+		// act
+		var burgers = repository.findAll();
+
+		// assert
+		assertNotNull(burgers);
+		int size = 0;
+		if (burgers instanceof Collection) {
+			size = ((Collection<?>) burgers).size();
+		}
+		assertThat(size).isEqualTo(2);
 	}
 
 	@Test
@@ -64,5 +80,9 @@ class BurgerRepositoryTest {
 		cheeseBurger = new Burger();
 		cheeseBurger.setCreatedAt(LocalDateTime.now());
 		cheeseBurger.setName("범스치킨버거");
+
+		bulgogiBurger = new Burger();
+		bulgogiBurger.setCreatedAt(LocalDateTime.now());
+		bulgogiBurger.setName("한국식_불고기버거");
 	}
 }
