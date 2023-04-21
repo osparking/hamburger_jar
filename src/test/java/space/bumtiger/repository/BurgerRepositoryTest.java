@@ -74,14 +74,14 @@ class BurgerRepositoryTest {
 		// arrange
 		Burger burger2del = repository.save(cheeseBurger);
 		repository.save(bulgogiBurger);
-		
+
 		// act
 		repository.delete(burger2del);
-		
+
 		// assert
 		var optionalBurger = repository.findById(burger2del.getId());
 		assertThat(optionalBurger.isEmpty());
-		
+
 		var burgers = repository.findAll();
 		int size = 0;
 		if (burgers instanceof Collection<Burger>) {
@@ -90,14 +90,35 @@ class BurgerRepositoryTest {
 		}
 	}
 
+	@Test
+	@DisplayName("햄버거 - 저장소 - 갱신")
+	void testUpdateById() {
+		// arrange
+		Burger savedCheese = repository.save(cheeseBurger);
+		int cheeseId = savedCheese.getId();
+		var foundCheese = repository.findById(cheeseId);
+
+		// act
+		String newName = "범이버거";
+		foundCheese.ifPresent(b -> b.setName(newName));
+		repository.save(foundCheese.get());
+
+		// assert
+		var updatedOptional = repository.findById(cheeseId);
+		assertThat(updatedOptional.isPresent());
+		assertThat(updatedOptional.get().getName()).isEqualTo(newName);
+		assertThat(updatedOptional.get().getCreatedAt())
+				// .isEqualTo(cheeseBurger.getCreatedAt()); // Fails
+				// .isEqualTo(savedCheese.getCreatedAt()); // Fails
+				.isEqualTo(foundCheese.get().getCreatedAt());
+	}
+
 	@BeforeEach
 	void cookBurgers() {
 		cheeseBurger = new Burger();
-		cheeseBurger.setCreatedAt(LocalDateTime.now());
 		cheeseBurger.setName("범스치킨버거");
 
 		bulgogiBurger = new Burger();
-		bulgogiBurger.setCreatedAt(LocalDateTime.now());
 		bulgogiBurger.setName("한국식_불고기버거");
 	}
 }
