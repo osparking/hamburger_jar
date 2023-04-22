@@ -1,10 +1,12 @@
 package space.bumtiger.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
-import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.Corder;
 
 @DataJdbcTest
@@ -115,5 +116,31 @@ class CorderRepositoryTest {
 			assertThat(size).isEqualTo(1);
 		}
 	}
+	// @formatter:off
+	@Test
+	@DisplayName("시험 대상 - 도로주소 갱신")
+	void testUpdate() {
+		// arrange
+		repository.save(bumOrder);
+		var foundOrder = repository.findById(bumOrder.getId());
+
+		// act
+		String addrRoad = "중앙로30번길 10";
+		Corder found = null;
+		Optional<Corder> updated = null;
+		if (foundOrder.isPresent()) {
+			found = foundOrder.get();
+			found.setAddrRoad(addrRoad);
+			repository.save(found);
+			updated = repository.findById(found.getId());
+		}
+
+		// assert
+		assertNotNull(updated);
+		assertThat(updated.get().getAddrRoad()).isEqualTo(addrRoad);
+		assertEquals(bumOrder.getAddrDetail(), 
+				updated.get().getAddrDetail());
+	}	 
+	// @formatter:on
 
 }
