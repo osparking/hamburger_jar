@@ -55,6 +55,7 @@ class CorderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("시험 대상 - 주문 정보 저장")
 	void testSave() {
 		Corder bumOrCorder = repository.save(bumOrder);
 		assertNotNull(bumOrCorder);
@@ -116,6 +117,7 @@ class CorderRepositoryTest {
 			assertThat(size).isEqualTo(1);
 		}
 	}
+
 	// @formatter:off
 	@Test
 	@DisplayName("시험 대상 - 도로주소 갱신")
