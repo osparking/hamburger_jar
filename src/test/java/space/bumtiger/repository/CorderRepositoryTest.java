@@ -1,10 +1,12 @@
 package space.bumtiger.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -45,8 +47,17 @@ class CorderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("시험 대상 - ID로 주문 검색 기능")
 	void testFindById() {
-		fail("Not yet implemented");
+		// Arrange
+		bumOrder = repository.save(bumOrder);
+
+		// Act
+		var foundOrder = repository.findById(bumOrder.getId());
+
+		// Assert
+		assertNotNull(foundOrder);
+		assertThat(foundOrder.get().getId()).isEqualTo(bumOrder.getId());
 	}
 
 	@Test
