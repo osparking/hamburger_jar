@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Collection;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,14 +20,15 @@ class CorderRepositoryTest {
 
 	@Autowired
 	private CorderRepository repository;
-	
+
 	private Corder bumOrder;
-	
+	private Corder yourOrder;
+
 	@AfterEach
 	void tearDown() throws Exception {
 		repository.deleteAll();
 	}
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		bumOrder = new Corder();
@@ -37,6 +40,16 @@ class CorderRepositoryTest {
 		bumOrder.setCcNumber(null);
 		bumOrder.setCustName(null);
 		bumOrder.setPlacedAt(null);
+
+		yourOrder = new Corder();
+		yourOrder.setAddrDetail("연못있는 집");
+		yourOrder.setAddrRoad(null);
+		yourOrder.setAddrZip(null);
+		yourOrder.setCcCVV(null);
+		yourOrder.setCcExpiration(null);
+		yourOrder.setCcNumber(null);
+		yourOrder.setCustName(null);
+		yourOrder.setPlacedAt(null);
 	}
 
 	@Test
@@ -61,8 +74,23 @@ class CorderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("시험 대상 - 모든 주문 검색 완료")
 	void testFindAll() {
-		fail("Not yet implemented");
+		// arrange
+		// - beforeEach 메소드에 의해서 일부 수행
+		repository.save(bumOrder);
+		repository.save(yourOrder);
+
+		// act
+		var orders = repository.findAll();
+
+		// assert
+		assertNotNull(orders);
+		int size = 0;
+		if (orders instanceof Collection) {
+			size = ((Collection<?>) orders).size();
+		}
+		assertThat(size).isEqualTo(2);
 	}
 
 	@Test
