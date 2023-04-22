@@ -39,7 +39,9 @@ class CorderRepositoryTest {
 
 	@Test
 	void testSave() {
-		fail("Not yet implemented");
+		Corder bumOrCorder = repository.save(bumOrder);
+		assertNotNull(bumOrCorder);
+		assertNotNull(bumOrCorder.getId());
 	}
 
 	@Test
