@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
+import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.Corder;
 
 @DataJdbcTest
@@ -94,8 +95,25 @@ class CorderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("시험 대상 - 특정 주문 삭제")
 	void testDeleteById() {
-		fail("Not yet implemented");
+		// arrange
+		Corder order2del = repository.save(bumOrder);
+		repository.save(yourOrder);
+
+		// act
+		repository.delete(order2del);
+
+		// assert
+		var optionalOrder = repository.findById(order2del.getId());
+		assertThat(optionalOrder.isEmpty());
+
+		var orders = repository.findAll();
+		int size = 0;
+		if (orders instanceof Collection<Corder>) {
+			size = ((Collection<?>) orders).size();
+			assertThat(size).isEqualTo(1);
+		}
 	}
 
 }
