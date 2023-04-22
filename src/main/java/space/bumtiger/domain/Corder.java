@@ -49,7 +49,7 @@ public class Corder {
 	private String ccCVV;
   // @formatter:on
 
-	private final List<CorderBurger> burgers = new ArrayList<>();
+	private List<CorderBurger> burgers = new ArrayList<>();
 
 	public void addBurger(CorderBurger burger) {
 		burgers.add(burger);
