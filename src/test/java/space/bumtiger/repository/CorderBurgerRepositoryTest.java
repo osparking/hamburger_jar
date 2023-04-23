@@ -1,5 +1,7 @@
 package space.bumtiger.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
@@ -86,8 +88,15 @@ class CorderBurgerRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("주문-버거 연결 정보 정상 저장")
 	void testSave() {
-		fail("Not yet implemented");
+		// arrange
+		// act
+		var savedCorBur = repository.save(orderBurger3);
+		
+		// assert
+		assertNotNull(savedCorBur);
+		assertThat(savedCorBur.getId()).isNotNull();
 	}
 
 	@Test
