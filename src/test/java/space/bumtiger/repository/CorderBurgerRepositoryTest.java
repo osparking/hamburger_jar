@@ -1,10 +1,13 @@
 package space.bumtiger.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +59,7 @@ class CorderBurgerRepositoryTest {
 		burger3.setCreatedAt(LocalDateTime.now());
 		burger3 = burgerRepo.save(burger3);
 		int burger3_Id = burger3.getId();
-		// }} 
+		// }}
 
 		// {{ 주문 두건
 		Corder order1 = new Corder();
@@ -93,15 +96,23 @@ class CorderBurgerRepositoryTest {
 		// arrange
 		// act
 		var savedCorBur = repository.save(orderBurger3);
-		
+
 		// assert
 		assertNotNull(savedCorBur);
 		assertThat(savedCorBur.getId()).isNotNull();
 	}
 
 	@Test
+	@DisplayName("주문_버거 연결 다중 정보 저장")
 	void testSaveAll() {
-		fail("Not yet implemented");
+		// arrange
+		// act
+		Iterable<CorderBurger> entries = 
+				List.of(orderBurger1, orderBurger2, orderBurger3);
+		entries = repository.saveAll(entries);
+		int size = ((Collection<?>)entries).size();
+		assertEquals(3, size);
+		entries.forEach(e -> assertNotNull(e.getId()));
 	}
 
 	@Test
