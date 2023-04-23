@@ -116,8 +116,24 @@ class CorderBurgerRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("주문 ID로 관련 주문_버거 정보 모두 찾음")
+	/** 
+	 * find all records on a given order ID
+	 */
 	void testFindAllById() {
-		fail("Not yet implemented");
+		// arrange
+		Iterable<CorderBurger> entries = 
+				List.of(orderBurger1, orderBurger2, orderBurger3);
+		entries = repository.saveAll(entries);
+		
+		// act
+		int order = orderBurger2.getCorder();
+		entries = repository.findAllByCorder(order);
+		
+		// assert
+		assertNotNull(entries);
+		int size = ((Collection<?>)entries).size();
+		assertEquals(2, size);
 	}
 
 	@Test

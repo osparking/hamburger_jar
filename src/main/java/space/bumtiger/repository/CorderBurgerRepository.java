@@ -6,5 +6,5 @@ import space.bumtiger.domain.CorderBurger;
 
 public interface CorderBurgerRepository 
 				extends CrudRepository<CorderBurger, Integer> {
-
+	Iterable<CorderBurger> findAllByCorder(int order);
 }
