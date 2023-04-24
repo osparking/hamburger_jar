@@ -87,6 +87,8 @@ class CorderBurgerRepositoryTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		burgerRepo.deleteAll();
+		corderRepo.deleteAll();
 		repository.deleteAll();
 	}
 
@@ -151,6 +153,23 @@ class CorderBurgerRepositoryTest {
 
 		// assert
 		assertThat(((Collection<?>) items).size()).isEqualTo(0);
+	}
+
+	@Test
+	@DisplayName("ID로 주문_버거 정보 삭제")
+	void testDeleteById() {
+		// arrange
+		// 한 개체 저장
+		var savedOB1 = repository.save(orderBurger1);
+		
+		// 저장 결과에서 ID 확보
+		
+		// act
+		repository.deleteById(savedOB1.getId());
+
+		// assert
+		var foundOB1 = repository.findById(savedOB1.getId());
+		assertThat(foundOB1).isEmpty();
 	}
 
 }
