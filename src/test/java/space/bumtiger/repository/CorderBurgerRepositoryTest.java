@@ -107,38 +107,50 @@ class CorderBurgerRepositoryTest {
 	void testSaveAll() {
 		// arrange
 		// act
-		Iterable<CorderBurger> entries = 
-				List.of(orderBurger1, orderBurger2, orderBurger3);
+		Iterable<CorderBurger> entries = List.of(orderBurger1, orderBurger2,
+				orderBurger3);
 		entries = repository.saveAll(entries);
-		int size = ((Collection<?>)entries).size();
+		int size = ((Collection<?>) entries).size();
 		assertEquals(3, size);
 		entries.forEach(e -> assertNotNull(e.getId()));
 	}
 
 	@Test
 	@DisplayName("주문 ID로 관련 주문_버거 정보 모두 찾음")
-	/** 
+	/**
 	 * find all records on a given order ID
 	 */
 	void testFindAllById() {
 		// arrange
-		Iterable<CorderBurger> entries = 
-				List.of(orderBurger1, orderBurger2, orderBurger3);
+		Iterable<CorderBurger> entries = List.of(orderBurger1, orderBurger2,
+				orderBurger3);
 		entries = repository.saveAll(entries);
-		
+
 		// act
 		int order = orderBurger2.getCorder();
 		entries = repository.findAllByCorder(order);
-		
+
 		// assert
 		assertNotNull(entries);
-		int size = ((Collection<?>)entries).size();
+		int size = ((Collection<?>) entries).size();
 		assertEquals(2, size);
 	}
 
 	@Test
-	void testDeleteAllById() {
-		fail("Not yet implemented");
+	@DisplayName("한 주문 ID 관련 주문_버거 정보 모두 삭제")
+	void testDeleteAllByCorder() {
+		// arrange
+		Iterable<CorderBurger> entries = List.of(orderBurger1, orderBurger2,
+				orderBurger3);
+		entries = repository.saveAll(entries);
+
+		// act
+		int corder = orderBurger2.getCorder();
+		repository.deleteByCorder(corder);
+		var items = repository.findAllByCorder(corder);
+
+		// assert
+		assertThat(((Collection<?>) items).size()).isEqualTo(0);
 	}
 
 }
