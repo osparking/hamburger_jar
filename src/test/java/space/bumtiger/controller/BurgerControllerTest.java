@@ -90,8 +90,20 @@ class BurgerControllerTest {
 	}
 
 	@Test
-	void testProcessBurger() {
-		fail("Not yet implemented");
+	@DisplayName("설계된 햄버거 처리됨")
+	@WithMockUser(username = "park", password = "1234", roles = { "USER",
+			"ADMIN" })
+	void testProcessBurger() throws Exception {
+		// arrange
+		cheeseBurger.setId(1);
+		when(burgerRepository.save(any(Burger.class))).thenReturn(cheeseBurger);
+
+		// act and assert
+		mockMvc
+				.perform(post("/design").contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(cheeseBurger)))
+				.andExpect(status().isCreated())
+				.andExpect(jsonPath("$.name", is(cheeseBurger.getName())));
 	}
 
 	@Test
