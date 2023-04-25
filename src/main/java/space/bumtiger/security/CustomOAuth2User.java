@@ -1,5 +1,6 @@
 package space.bumtiger.security;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,8 +13,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CustomOAuth2User implements OAuth2User {
-
+public class CustomOAuth2User implements OAuth2User, Serializable {
+	private static final long serialVersionUID = 1L;
 	private OAuth2User oAuth2User;
 
 	@Override
