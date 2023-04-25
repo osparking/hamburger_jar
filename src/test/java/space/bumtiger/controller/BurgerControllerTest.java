@@ -45,6 +45,12 @@ class BurgerControllerTest {
 	@MockBean
 	private IngredientRepository ingredientRepository;
 
+	@MockBean
+	private BurgerRepository burgerRepository;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
 	private Burger cheeseBurger;
 	
 	@BeforeEach
