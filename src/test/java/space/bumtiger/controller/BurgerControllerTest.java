@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +21,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import space.bumtiger.domain.Burger;
+import space.bumtiger.domain.BurgerIngredient;
 import space.bumtiger.repository.IngredientRepository;
 
 @SpringBootTest
@@ -30,8 +35,37 @@ class BurgerControllerTest {
 	@MockBean
 	private IngredientRepository ingredientRepository;
 
+	private Burger cheeseBurger;
+	
 	@BeforeEach
 	void setUp() throws Exception {
+		Integer burgerId = 1;
+
+		BurgerIngredient bing1 = new BurgerIngredient();
+		bing1.setId(1);
+		bing1.setBurger(burgerId);
+		bing1.setBurgerKey((short) 1);
+		bing1.setIngredient("BNBD");
+
+		BurgerIngredient bing2 = new BurgerIngredient();
+		bing2.setId(2);
+		bing2.setBurger(burgerId);
+		bing2.setBurgerKey((short) 2);
+		bing2.setIngredient("BNBD");
+
+		BurgerIngredient bing3 = new BurgerIngredient();
+		bing3.setId(3);
+		bing3.setBurger(burgerId);
+		bing3.setBurgerKey((short) 3);
+		bing3.setIngredient("BNBD");
+
+		List<BurgerIngredient> ingList = new ArrayList<>();
+		ingList.addAll(List.of(bing1, bing2, bing3));
+
+		cheeseBurger = new Burger();
+		cheeseBurger.setId(burgerId);
+		cheeseBurger.setName("범스치킨버거");
+		cheeseBurger.setIngredients(ingList);		
 	}
 
 	@AfterEach
