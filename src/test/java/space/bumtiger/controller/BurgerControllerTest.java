@@ -70,6 +70,7 @@ class BurgerControllerTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		ingredientRepository.deleteAll();
 	}
 
 	@Test
