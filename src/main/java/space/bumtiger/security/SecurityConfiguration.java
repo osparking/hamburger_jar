@@ -18,6 +18,7 @@ public class SecurityConfiguration {
 	// @formatter:off
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable();
 		http.authorizeHttpRequests(
 					authorize -> authorize
 						.requestMatchers("/design", "/orders").hasRole("USER")
