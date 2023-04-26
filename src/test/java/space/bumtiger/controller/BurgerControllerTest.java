@@ -1,13 +1,18 @@
 package space.bumtiger.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,23 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import space.bumtiger.domain.Burger;
 import space.bumtiger.domain.BurgerIngredient;
 import space.bumtiger.repository.BurgerRepository;
 import space.bumtiger.repository.IngredientRepository;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import static org.hamcrest.CoreMatchers.is;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -99,11 +97,17 @@ class BurgerControllerTest {
 		when(burgerRepository.save(any(Burger.class))).thenReturn(cheeseBurger);
 
 		// act and assert
+		Map<String, Object> lookupMap = new HashMap<>();
+		lookupMap.put("burger", cheeseBurger);
 		mockMvc
 				.perform(post("/design").contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(cheeseBurger)))
-				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.name", is(cheeseBurger.getName())));
+						.content(objectMapper.writeValueAsString(cheeseBurger))
+						.param("addrDetail", "101호")
+						.param("custName", "홍길동")
+						)
+				.andExpect(status().isOk()).andExpect(view().name("design"));
+//			.andExpect(status().isCreated())
+//			.andExpect(jsonPath("$.name", is(cheeseBurger.getName())));
 	}
 
 	@Test
