@@ -7,6 +7,7 @@
 <link rel="stylesheet" th:href="@{styles.css}" />
 </head>
 <body onload="copyCCN()">
+  <div th:replace="~{fragments/icon :: header}"></div>
   <form method="POST" th:action="@{/orders}" th:object="${corder}">
     <h1>당신이 버거 작품을 주문하세요:</h1>
     <img th:src="@{/images/hamburger.jpg}" />
