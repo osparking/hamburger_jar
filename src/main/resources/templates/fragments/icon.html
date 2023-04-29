@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>아이콘 단편</title>
@@ -10,11 +12,16 @@
 		<div class="logo">
 			<img width="179" alt="Logo" th:src="@{/images/bumburger.png}">
 		</div>
+		<div sec:authorize="hasRole('USER')">
+			<a th:href="@{/}">홈으로</a>
+			<a th:href="@{/design}">버거설계</a>
+			(이름/사용자명): <span sec:authentication="name">(이름/사용자명)</span>
 		<form name="logoutForm" th:hidden="true" th:action="@{/logout}"
 		  method="post">
 		<input type="submit" value="로그아웃" />
 		</form>
 		<a href="javascript: logoutForm.submit();">로그아웃</a>	
+		</div>		
 	</header>
 
 </body>
