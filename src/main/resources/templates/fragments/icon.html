@@ -10,6 +10,12 @@
 		<div class="logo">
 			<img width="179" alt="Logo" th:src="@{/images/bumburger.png}">
 		</div>
+		<form name="logoutForm" th:hidden="true" th:action="@{/logout}"
+		  method="post">
+		<input type="submit" value="로그아웃" />
+		</form>
+		<a href="javascript: logoutForm.submit();">로그아웃</a>	
 	</header>
+
 </body>
 </html>

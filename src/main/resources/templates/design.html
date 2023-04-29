@@ -8,11 +8,6 @@
 </head>
 <body>
   <div th:replace="~{fragments/icon :: header}"></div>
-  <form name="logoutForm" th:hidden="true" th:action="@{/logout}"
-    method="post">
-  <input type="submit" value="로그아웃" />
-  </form>
-  <a href="javascript: logoutForm.submit();">로그아웃</a>
   <h1>당신의 햄버거를 창조하세요!</h1>
   <img th:src="@{/images/hamburger.jpg}" />
 
