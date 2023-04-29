@@ -24,10 +24,16 @@
 		</div>
 		<div sec:authorize="isAnonymous()">
 			<a th:href="@{/}">홈으로</a>
-			<a href="#none">버거설계</a>
+			<a href="#none" onclick="requireLogin()">버거설계</a>
 			<a th:href="@{/login}">로그인</a>
 			<a th:href="@{/register}">사용자 등록</a>
-		</div>		
+		</div>
+		<script>
+			function requireLogin() {
+				alert("로그인하십시오");
+				location.href = 'design';
+			}
+		</script>
 	</header>
 
 </body>
