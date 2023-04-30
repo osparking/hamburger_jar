@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import space.bumtiger.repository.CorderRepository;
 
 @Service
-public class CorderService {
+public class CorderAdminService {
 	@Autowired
 	private CorderRepository repository;
 	
