@@ -12,6 +12,7 @@
   <img th:src="@{/images/hamburger.jpg}" />
 
   <form method="POST" th:object="${burger}">
+  	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <div class="grid">
       <div class="ingredient-group" id="bread">
         <h3>햄버거 빵을 고르세요:</h3>
