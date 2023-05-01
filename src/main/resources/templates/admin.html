@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>수제 햄버거</title>
+</head>
+<body>
+	<div th:replace="~{fragments/icon :: header}"></div>
+	<br>
+	<div>
+		총 주문: <span th:text="${orderCount}">(주문건수)</span>건
+	</div>
+	<form name="submitForm" method="POST"
+		th:action="@{/admin/deleteOrders}"> 
+		<input type="submit" value="모든 주문 삭제">
+	</form>
+</body>
+</html>
