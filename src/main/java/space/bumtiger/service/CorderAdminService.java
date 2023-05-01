@@ -13,4 +13,8 @@ public class CorderAdminService {
 	public void deleteAllOrders() {
 		repository.deleteAll();
 	}
+
+	public long getOrderCount() {		
+		return repository.count();
+	}
 }
