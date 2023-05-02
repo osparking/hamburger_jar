@@ -24,6 +24,7 @@
 			<span sec:authorize="hasRole('ADMIN')">
 				<a th:href="@{/admin}">관리자</a>
 			</span>
+			<a th:href="@{/admin}">아무나_관리자</a>
 		</div>
 		<div sec:authorize="isAnonymous()">
 			<a th:href="@{/}">홈으로</a>
