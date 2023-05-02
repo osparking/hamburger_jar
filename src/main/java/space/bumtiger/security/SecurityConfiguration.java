@@ -3,7 +3,7 @@ package space.bumtiger.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +15,7 @@ import space.bumtiger.domain.User;
 import space.bumtiger.repository.UserRepository;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfiguration {
 	// @formatter:off
 	@Bean
@@ -40,8 +41,8 @@ public class SecurityConfiguration {
 	@Autowired
 	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 	
-  @Autowired
-  private CustomOAuth2UserService oauth2UserService;
+	@Autowired
+	private CustomOAuth2UserService oauth2UserService;
 
 	@Bean
 	PasswordEncoder passwordEncoder() {
