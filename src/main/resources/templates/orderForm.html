@@ -52,7 +52,7 @@
     <br />
     
     <h3>대금 지불 수단:</h3>
-    <label for="ccNumber">신용카드번호(<span style="color:blue">4263982640269299</span>):</label> 
+    <label for="ccNumber">신용카드번호:</label> 
     <input type="text" th:field="*{ccNumber}" th:placeholder="${ccNumber}"/>
     <span class="validationError"
       th:if="${#fields.hasErrors('ccNumber')}"
@@ -80,8 +80,13 @@
   </form>
   <script>
   	function copyCCN() {
+  		document.getElementById("custName").value = "[[${custName}]]";
+  		document.getElementById("addrRoad").value = "서울시 중구 종로1가100";
+  		document.getElementById("addrZip").value = "10010";
+  		document.getElementById("addrDetail").value = "[[${addrDetail}]]";
   		document.getElementById("ccNumber").value = "4263982640269299";
   		document.getElementById("ccExpiration").value = "12/26";
+  		document.getElementById("ccCVV").value = "126";
 	}
   </script>
 </body>
