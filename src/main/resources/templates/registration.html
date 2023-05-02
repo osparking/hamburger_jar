@@ -6,7 +6,7 @@
 	<title>수제 햄버거 가게</title>
 </head>
 <body>
-	<div th:replace="~{fragments/icon :: header}"></div>
+	<div th:replace="~{fragments/topLinks :: header}"></div>
     <h1>고객 등록 폼</h1>
     <img th:src="@{/images/hamburger.jpg}"/>    
     <form method="POST" th:action="@{/register}" id="registerForm">
