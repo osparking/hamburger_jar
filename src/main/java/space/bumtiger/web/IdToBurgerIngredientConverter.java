@@ -11,9 +11,7 @@ public class IdToBurgerIngredientConverter
 
 	@Override
 	public BurgerIngredient convert(String id) {
-		var bi = new BurgerIngredient();
-		bi.setIngredient(id);
-		return bi;
+		return new BurgerIngredient(id);
 	}
 
 }
