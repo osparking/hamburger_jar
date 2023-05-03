@@ -138,7 +138,16 @@ public class BurgerController {
 
 	@ModelAttribute(name = "burger")
 	public Burger burger() {
-		return new Burger();
+		var burger = new Burger();
+		var x = getOneIngInOneType(ingredients);
+		
+		List<BurgerIngredient> burgerIngredients =
+				StreamSupport.stream(x.spliterator(), false).map( 
+					BurgerIngredient::new).collect(Collectors.toList());
+		
+		burger.setIngredients(burgerIngredients);
+
+		return burger;
 	}
 
 	@GetMapping
