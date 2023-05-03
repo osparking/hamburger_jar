@@ -106,6 +106,35 @@ public class BurgerController {
 	public Corder corder() {
 		return new Corder();
 	}
+	
+	private Random randIngr = new Random();
+	
+	private Iterable<String> getOneIngInOneType(
+			Iterable<Ingredient> ingredients) {
+		Type[] types = Ingredient.Type.values();
+		List<String> ingNames = new ArrayList<>();
+		for (Type type : types) {
+			Iterable<Ingredient> result = StreamSupport
+					.stream(ingredients.spliterator(), false)
+					.filter(x -> (x.getType().equals(type)))
+					.collect(Collectors.toList());
+			
+			int s = randIngr.nextInt(((Collection<?>) result).size());
+			
+			List<Ingredient> resultChecked = new ArrayList<Ingredient>();
+			int i = 0;
+			var iter = result.iterator();
+			while (iter.hasNext()) {
+				var ing = iter.next();
+				if (i++ == s) {
+					ingNames.add(ing.getId());
+					break;
+				}
+				resultChecked.add(ing);
+			}
+		}
+		return ingNames;
+	}
 
 	@ModelAttribute(name = "burger")
 	public Burger burger() {
