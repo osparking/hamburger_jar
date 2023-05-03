@@ -1,7 +1,9 @@
 package space.bumtiger.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,19 +35,20 @@ import space.bumtiger.repository.IngredientRepository;
 @SessionAttributes({ "corder", "burgerNames" })
 public class BurgerController {
 
-	private IngredientRepository ingredientRepository;
 	private BurgerRepository burgerRepository;
 	private BurgerIngreRepository burgerIngreRepository;
+	private Iterable<Ingredient> ingredients;
 
 	public BurgerController(IngredientRepository ingredientRepository,
 			BurgerRepository burgerRepository,
 			BurgerIngreRepository burgerIngreRepository) {
 		super();
-		this.ingredientRepository = ingredientRepository;
 		this.burgerRepository = burgerRepository;
 		this.burgerIngreRepository = burgerIngreRepository;
+		
+		ingredients = ingredientRepository.findAll();
 	}
-
+	
 	@PostMapping
 	public String processBurger(@Valid Burger burger, Errors errors,
 			@ModelAttribute Corder corder,
@@ -92,8 +95,6 @@ public class BurgerController {
 	
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
-		Iterable<Ingredient> ingredients = ingredientRepository.findAll();
-
 		Type[] types = Ingredient.Type.values();
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(),
