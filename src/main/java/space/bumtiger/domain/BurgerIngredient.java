@@ -11,4 +11,9 @@ public class BurgerIngredient {
 	private Integer burger;
 	private Short burgerKey;
 	private String ingredient;
+	public BurgerIngredient(String ingredient) {
+		super();
+		this.ingredient = ingredient;
+	}
+	
 }
