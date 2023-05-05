@@ -19,6 +19,8 @@ public class Corder {
 
 	@Id
 	private Integer id;
+	
+	private Integer userId;
 
 	private LocalDateTime placedAt;
 
