@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.Digits;
@@ -21,6 +22,9 @@ public class Corder {
 	private Integer id;
 	
 	private Integer userId;
+	
+	@Transient	
+	private String username;
 
 	private LocalDateTime placedAt;
 
