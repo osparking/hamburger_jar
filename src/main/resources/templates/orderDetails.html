@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>햄버거 주문</title>
+<link rel="stylesheet" th:href="@{styles.css}" />
+</head>
+<body onload="copyCCN()">
+  <div th:replace="~{fragments/topLinks :: header}"></div>
+  <h1>주문 상세 내용:</h1>
+  <form method="GET" th:object="${corder}"
+  		action="/orders/read">
+    <div>
+      <h3>주문 아이디:</h3>
+      <input type="text" th:field="*{id}" /> <br />
+      <button>주문 조회</button>
+    </div>
+    <div>
+    	<label for="custName">고객 성명: </label>
+    	<input type="text" th:field="*{custName}" readonly > 
+    </div>
+    <div>
+    	<label for="addrDetail">상세 주소: </label>
+    	<input type="text" th:field="*{addrDetail}" readonly> 
+    </div>
+  </form>
+</body>
+</html>
