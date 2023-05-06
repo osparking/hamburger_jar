@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,29 +17,42 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import space.bumtiger.domain.Corder;
 import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
 import space.bumtiger.repository.UserRepository;
+import space.bumtiger.service.CorderService;
 
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes({ "corder", "burgerNames" })
 public class CorderController {
+	@Autowired
 	private CorderRepository repository;
+	@Autowired
 	private CorderBurgerRepository cbRepository;
+	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private CorderService service;
 
-	public CorderController(CorderRepository corderRepository,
-			CorderBurgerRepository corderBurgerRepository, 
-			UserRepository userRepository) {
-		super();
-		this.repository = corderRepository;
-		this.cbRepository = corderBurgerRepository;
-		this.userRepository = userRepository;
+	@GetMapping("/read")
+	public String showOrderDetail(Model model, HttpServletRequest request,
+			Principal principal) {
+		String idStr = request.getParameter("id");
+		var corder = new Corder();
+
+		corder.setId(35);
+		if (idStr != null) {
+			Integer id = Integer.parseInt(idStr);
+			corder = service.getOrder(id, principal);
+		}
+		model.addAttribute("corder", corder);
+		return "orderDetails";
 	}
-
+	
 	@GetMapping("current")
 	public String orderForm(Model model, HttpServletRequest request) {
 		model.addAttribute("ccNumber", ccNumber);
