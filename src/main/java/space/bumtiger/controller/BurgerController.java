@@ -70,9 +70,9 @@ public class BurgerController {
 			 */
 			short key = 1;
 			for (BurgerIngredient burgerIngredient : burger.getIngredients()) {
-			        burgerIngredient.setBurger(savedBurger.getId());
-			        burgerIngredient.setBurgerKey(key++);
-			        burgerIngreRepository.save(burgerIngredient);
+				burgerIngredient.setBurger(savedBurger.getId());
+				burgerIngredient.setBurgerKey(key++);
+				burgerIngreRepository.save(burgerIngredient);
 			}
 			
 			/**
