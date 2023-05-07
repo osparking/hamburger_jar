@@ -25,6 +25,9 @@ public class Corder {
 	
 	@Transient	
 	private String username;
+	
+	@Transient
+	private boolean readable;
 
 	private LocalDateTime placedAt;
 
@@ -60,4 +63,5 @@ public class Corder {
 	public void addBurger(CorderBurger burger) {
 		burgers.add(burger);
 	}
+
 }

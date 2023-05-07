@@ -11,11 +11,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @AllArgsConstructor
+@Data
 public class CustomOAuth2User implements OAuth2User, Serializable {
 	private static final long serialVersionUID = 1L;
 	private OAuth2User oAuth2User;
+	private Integer idLocal;
 
 	@Override
 	public Map<String, Object> getAttributes() {

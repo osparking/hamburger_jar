@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,12 +18,12 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import space.bumtiger.domain.Corder;
 import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
 import space.bumtiger.repository.UserRepository;
+import space.bumtiger.security.CustomOAuth2User;
 import space.bumtiger.service.CorderService;
 
 @Controller
@@ -40,14 +41,15 @@ public class CorderController {
 
 	@GetMapping("/read")
 	public String showOrderDetail(Model model, HttpServletRequest request,
-			Principal principal) {
+			Authentication auth) {
 		String idStr = request.getParameter("id");
 		var corder = new Corder();
 
-		corder.setId(35);
+		corder.setId(42);
 		if (idStr != null) {
 			Integer id = Integer.parseInt(idStr);
-			corder = service.getOrder(id, principal);
+			
+			corder = service.getOrder(id, auth);
 		}
 		model.addAttribute("corder", corder);
 		return "orderDetails";
@@ -84,16 +86,26 @@ public class CorderController {
 
 	@PostMapping
 	public String processOrder(@Valid Corder corder, Errors errors,
-			SessionStatus sessionStatus, Principal principal) {
+			SessionStatus sessionStatus, Authentication auth) {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
 		/** 
 		 * 주문 자체 저장 
 		 */
-		User user = userRepository.findByUsername(principal.getName());
+		var prin = auth.getPrincipal();
+		User user = null;
+		
+		if (prin instanceof CustomOAuth2User) {
+//			String email = ((CustomOAuth2User)prin).getEmail();
+//			user = userRepository.findByUsername(email);
+			Integer idLocal = ((CustomOAuth2User)prin).getIdLocal();
+			corder.setUserId(idLocal);
+		} else {
+			user = (User)prin;
+			corder.setUserId(user.getId());
+		}
 
-		corder.setUserId(user.getId());
 		corder.setPlacedAt(LocalDateTime.now());
 		Corder corderSaved = repository.save(corder);
 		

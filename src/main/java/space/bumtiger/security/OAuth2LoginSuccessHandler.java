@@ -25,7 +25,7 @@ public class OAuth2LoginSuccessHandler
 			throws IOException, ServletException {
 
 		CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
-		userService.processOAuthPostLogin(user.getEmail());
+		userService.processOAuthPostLogin(user.getEmail(), authentication);
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }
