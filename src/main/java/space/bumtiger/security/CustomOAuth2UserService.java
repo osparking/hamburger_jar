@@ -1,6 +1,7 @@
 package space.bumtiger.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -22,14 +23,17 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	@Autowired
 	private UserRepository userRepo;
 
-	public void processOAuthPostLogin(String email) {
+	public void processOAuthPostLogin(String email,
+			Authentication authentication) {
 		User dbUser = userRepo.findByUsername(email);
 
 		if (dbUser == null) {
 			User facebookUser = new User(email, "(NA)", "ROLE_USER", true,
 					Provider.FACEBOOK);
-			userRepo.save(facebookUser);
+			dbUser = userRepo.save(facebookUser);
 		}
+		var coa2User = (CustomOAuth2User) authentication.getPrincipal();
+		coa2User.getAttributes().put("idLocal", dbUser.getId());
 	}
 
 }
