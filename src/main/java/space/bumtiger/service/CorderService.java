@@ -1,14 +1,14 @@
 package space.bumtiger.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import space.bumtiger.domain.Corder;
-import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderRepository;
-import space.bumtiger.security.CustomOAuth2User;
 import space.bumtiger.security.LoginUser;
 
 @Service
@@ -19,7 +19,14 @@ public class CorderService {
 	
 	@PostAuthorize("hasRole('ADMIN') || returnObject.readable")
 	public Corder getOrder(Integer id, Authentication authentication) {
-		Corder corder = repository.findById(id).orElseThrow();
+		Corder corder = repository.findById(id).orElseThrow(() -> {
+			var msgBuf = new StringBuffer("ID가 '");
+
+			msgBuf.append(id);
+			msgBuf.append("'인 주문 없습니다.");
+
+			return new NoSuchElementException(msgBuf.toString());
+		});
 		corder.setReadable(false);
 		if (LoginUser.getUserId(authentication) == corder.getUserId()) {
 			corder.setReadable(true);
