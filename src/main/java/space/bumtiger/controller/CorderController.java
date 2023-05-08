@@ -1,6 +1,5 @@
 package space.bumtiger.controller;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,12 +17,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import space.bumtiger.domain.Corder;
-import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
-import space.bumtiger.repository.UserRepository;
+import space.bumtiger.security.LoginUser;
 import space.bumtiger.service.CorderService;
 
 @Controller
@@ -34,8 +31,6 @@ public class CorderController {
 	private CorderRepository repository;
 	@Autowired
 	private CorderBurgerRepository cbRepository;
-	@Autowired
-	private UserRepository userRepository;
 	@Autowired
 	private CorderService service;
 
@@ -85,16 +80,14 @@ public class CorderController {
 
 	@PostMapping
 	public String processOrder(@Valid Corder corder, Errors errors,
-			SessionStatus sessionStatus, Principal principal) {
+			SessionStatus sessionStatus, Authentication authentication) {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
 		/** 
 		 * 주문 자체 저장 
 		 */
-		User user = userRepository.findByUsername(principal.getName());
-
-		corder.setUserId(user.getId());
+		corder.setUserId(LoginUser.getUserId(authentication));
 		corder.setPlacedAt(LocalDateTime.now());
 		Corder corderSaved = repository.save(corder);
 		
