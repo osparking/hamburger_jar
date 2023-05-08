@@ -1,11 +1,13 @@
 package space.bumtiger.controller;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -35,15 +37,16 @@ public class CorderController {
 	private CorderService service;
 
 	@GetMapping("/read")
-	public String showOrderDetail(Model model, HttpServletRequest request,
-			Authentication auth) {
+	public String showOrderDetail(Model model, 
+			HttpServletRequest request,
+			@AuthenticationPrincipal Object user) throws Exception {
 		String idStr = request.getParameter("id");
 		var corder = new Corder();
 
-		corder.setId(42);
+		corder.setId(45);
 		if (idStr != null) {
 			Integer id = Integer.parseInt(idStr);
-			corder = service.getOrder(id, auth);
+			corder = service.getOrder(id, user);
 		}
 		model.addAttribute("corder", corder);
 		return "orderDetails";
@@ -80,14 +83,15 @@ public class CorderController {
 
 	@PostMapping
 	public String processOrder(@Valid Corder corder, Errors errors,
-			SessionStatus sessionStatus, Authentication authentication) {
+			SessionStatus sessionStatus, 
+			@AuthenticationPrincipal Principal principal) {
 		if (errors.hasErrors()) {
 			return "orderForm";
 		}
 		/** 
 		 * 주문 자체 저장 
 		 */
-		corder.setUserId(LoginUser.getUserId(authentication));
+		corder.setUserId(LoginUser.getUserId(principal));
 		corder.setPlacedAt(LocalDateTime.now());
 		Corder corderSaved = repository.save(corder);
 		
