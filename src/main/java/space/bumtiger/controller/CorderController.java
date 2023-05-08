@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -40,14 +41,14 @@ public class CorderController {
 
 	@GetMapping("/read")
 	public String showOrderDetail(Model model, HttpServletRequest request,
-			Principal principal) {
+			Authentication auth) {
 		String idStr = request.getParameter("id");
 		var corder = new Corder();
 
-		corder.setId(35);
+		corder.setId(42);
 		if (idStr != null) {
 			Integer id = Integer.parseInt(idStr);
-			corder = service.getOrder(id, principal);
+			corder = service.getOrder(id, auth);
 		}
 		model.addAttribute("corder", corder);
 		return "orderDetails";
