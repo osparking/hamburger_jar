@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import space.bumtiger.domain.User;
-import space.bumtiger.repository.UserRepository;
 
 @Component
 public class OAuth2LoginSuccessHandler
@@ -25,7 +23,7 @@ public class OAuth2LoginSuccessHandler
 			throws IOException, ServletException {
 
 		CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
-		userService.processOAuthPostLogin(user.getEmail());
+		userService.processOAuthPostLogin(user.getEmail(), authentication);
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }
