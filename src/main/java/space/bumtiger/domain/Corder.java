@@ -26,6 +26,9 @@ public class Corder {
 	@Transient	
 	private String username;
 
+	@Transient
+	private boolean readable;
+	
 	private LocalDateTime placedAt;
 
 	// @formatter:off
