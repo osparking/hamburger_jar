@@ -9,6 +9,7 @@ import space.bumtiger.domain.Corder;
 import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderRepository;
 import space.bumtiger.security.CustomOAuth2User;
+import space.bumtiger.security.LoginUser;
 
 @Service
 @AllArgsConstructor
@@ -17,18 +18,13 @@ public class CorderService {
 	private CorderRepository repository;
 	
 	@PostAuthorize("hasRole('ADMIN') || returnObject.readable")
-	public Corder getOrder(Integer id, Authentication auth) {
+	public Corder getOrder(Integer id, Authentication authentication) {
 		Corder corder = repository.findById(id).orElseThrow();
 		corder.setReadable(false);
-		var prin = auth.getPrincipal();
-		if (prin instanceof CustomOAuth2User) {
-			var idLocal = ((CustomOAuth2User) prin).getIdLocal();
-			if (corder.getUserId() == idLocal)
-				corder.setReadable(true);
-		} else {
-			if (corder.getUserId() == ((User)prin).getId())
-				corder.setReadable(true);
+		if (LoginUser.getUserId(authentication) == corder.getUserId()) {
+			corder.setReadable(true);
 		}
 		return corder;
 	}
+	
 }
