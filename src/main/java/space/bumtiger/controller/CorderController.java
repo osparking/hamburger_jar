@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import space.bumtiger.domain.Corder;
+import space.bumtiger.domain.User;
 import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
 import space.bumtiger.security.LoginUser;
@@ -34,6 +36,18 @@ public class CorderController {
 	@Autowired
 	private CorderService service;
 
+	// @formatter:off
+	@GetMapping
+	public String ordersForUser(
+			@AuthenticationPrincipal User user, Model model) {
+
+		model.addAttribute("orders",
+				repository.findByUserIdOrderByPlacedAtDesc(user.getId()));
+
+		return "orderList";
+	}
+	// @formatter:on
+	
 	@GetMapping("/read")
 	public String showOrderDetail(Model model, HttpServletRequest request,
 			Authentication auth) {
