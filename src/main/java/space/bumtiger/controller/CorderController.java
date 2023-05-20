@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -41,8 +43,10 @@ public class CorderController {
 	public String ordersForUser(
 			@AuthenticationPrincipal User user, Model model) {
 
+		Pageable pageable = PageRequest.of(0, 3);
 		model.addAttribute("orders",
-				repository.findByUserIdOrderByPlacedAtDesc(user.getId()));
+				repository.findByUserIdOrderByPlacedAtDesc(
+						user.getId(), pageable));
 
 		return "orderList";
 	}
