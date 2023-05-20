@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,15 @@ import space.bumtiger.service.CorderService;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes({ "corder", "burgerNames" })
+@ConfigurationProperties(prefix = "burger.orders")
 public class CorderController {
+	
+	private int pageSize = 3;
+	
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	
 	@Autowired
 	private CorderRepository repository;
 	@Autowired
@@ -43,7 +52,7 @@ public class CorderController {
 	public String ordersForUser(
 			@AuthenticationPrincipal User user, Model model) {
 
-		Pageable pageable = PageRequest.of(0, 3);
+		Pageable pageable = PageRequest.of(0, pageSize);
 		model.addAttribute("orders",
 				repository.findByUserIdOrderByPlacedAtDesc(
 						user.getId(), pageable));
