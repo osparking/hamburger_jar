@@ -27,18 +27,12 @@ import space.bumtiger.repository.CorderBurgerRepository;
 import space.bumtiger.repository.CorderRepository;
 import space.bumtiger.security.LoginUser;
 import space.bumtiger.service.CorderService;
+import space.bumtiger.web.OrderProps;
 
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes({ "corder", "burgerNames" })
-@ConfigurationProperties(prefix = "burger.orders")
 public class CorderController {
-	
-	private int pageSize = 3;
-	
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
 	
 	@Autowired
 	private CorderRepository repository;
@@ -46,13 +40,15 @@ public class CorderController {
 	private CorderBurgerRepository cbRepository;
 	@Autowired
 	private CorderService service;
+	@Autowired
+	private OrderProps orderProps;
 
 	// @formatter:off
 	@GetMapping
 	public String ordersForUser(
 			@AuthenticationPrincipal User user, Model model) {
 
-		Pageable pageable = PageRequest.of(0, pageSize);
+		Pageable pageable = PageRequest.of(0, orderProps.getPageSize());
 		model.addAttribute("orders",
 				repository.findByUserIdOrderByPlacedAtDesc(
 						user.getId(), pageable));
