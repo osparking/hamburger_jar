@@ -45,13 +45,11 @@ public class CorderController {
 
 	// @formatter:off
 	@GetMapping
-	public String ordersForUser(
-			@AuthenticationPrincipal User user, Model model) {
-
+	public String ordersForUser(Authentication auth, Model model) {
 		Pageable pageable = PageRequest.of(0, orderProps.getPageSize());
 		model.addAttribute("orders",
 				repository.findByUserIdOrderByPlacedAtDesc(
-						user.getId(), pageable));
+						LoginUser.getUserId(auth), pageable));
 
 		return "orderList";
 	}
