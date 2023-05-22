@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "burger.orders.page-size",
+  "type": "java.lang.String",
+  "description": "고객의 과거 주문 목록 한 면 표시 건수"
+}]}
