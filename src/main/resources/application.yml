@@ -1,3 +1,45 @@
+logging:
+  file:
+    name: d:/tmp/logs/Hamburger.log
+  level:
+    space:
+      bumtiger: DEBUG
+
+---
+logging:
+  level:
+    space:
+      bumtiger: WARN
+    root: INFO
+    org:
+      springframework:
+        security: DEBUG  
 spring:
-  profiles:
-    include: prod
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mariadb://localhost:3306/hamburger
+    username: burger
+    password: 4899
+  application:
+    name: burger_service
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: 1152800415385524
+            clientSecret: c5ae55673b5115e22a9613697cfdfc93
+            scope: email, public_profile
+
+credential:
+  ccNumber: 4263982640269299
+  ccExpiration: 12/26
+  
+server:
+  port: 8443
+  ssl:
+    key-store: d:/home/data/keystore.jks
+    key-store-password: letmein
+    key-password: letmein
