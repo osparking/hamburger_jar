@@ -4,11 +4,6 @@ logging:
   level:
     space:
       bumtiger: DEBUG
-      
-spring:
-  profiles:
-    active:
-    - prod      
 
 ---
 logging:
