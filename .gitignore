@@ -1,5 +1,5 @@
 ### password ###
-application-prod.yml
+application-prod_sec.yml
 
 HELP.md
 target/
