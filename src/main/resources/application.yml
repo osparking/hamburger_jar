@@ -11,8 +11,7 @@ credential:
 
 spring:
   profiles:
-    active:
-    - prod
+    active: test
     include: prod_sec
     
   application:
@@ -42,3 +41,33 @@ server:
     key-store: d:/home/data/keystore.jks
     key-store-password: letmein
     key-password: letmein
+    
+---
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      
+  config:
+    activate:
+      on-profile: test
+      
+  datasource:
+    url: jdbc:h2:mem:hamburger # In-Memory mode 
+    username: root
+    password: 1234
+    driverClassName: org.h2.Driver # spring - h2 연결
+
+  sql:
+    init:
+      schema-locations: classpath:schema_h2.sql
+      data-locations:
+      - classpath:data_h2.sql
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: TRACE
