@@ -18,3 +18,12 @@ where b.id in (
 	select cb.burger  
 	from corder_burger cb
 	join corder c on cb.corder = c.id);	
+	
+# 사용자별 설계했던 버거 생성일시 역순 정렬	
+select * 
+from burger b
+where b.id in ( 
+	select cb.burger  
+	from corder_burger cb
+	join corder c on cb.corder = c.id)
+order by user asc, created_at desc;
