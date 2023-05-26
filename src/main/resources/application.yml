@@ -11,7 +11,7 @@ credential:
 
 spring:
   profiles:
-    active: test
+    active: prod
     include: prod_sec
     
   application:
