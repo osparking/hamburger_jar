@@ -27,3 +27,6 @@ where b.id in (
 	from corder_burger cb
 	join corder c on cb.corder = c.id)
 order by user asc, created_at desc;
+
+# 버거 테이블 열이름 변경
+ALTER TABLE hamburger.burger CHANGE `user` user_id int(11) DEFAULT NULL NULL COMMENT 'id of user who designed this burger';
