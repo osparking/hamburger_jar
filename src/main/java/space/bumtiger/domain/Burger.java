@@ -21,6 +21,8 @@ public class Burger {
 	@Size(min = 2, message = "이름은 최소 2 문자만 가능합니다.")
 	private String name;
 	
+	private Integer userId;
+	
 	private LocalDateTime createdAt = LocalDateTime.now();
 
 	@NotNull
