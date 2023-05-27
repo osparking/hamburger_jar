@@ -35,13 +35,6 @@ spring:
     username: burger
     password: 4899
 
-server:
-  port: 8443
-  ssl:
-    key-store: d:/home/data/keystore.jks
-    key-store-password: letmein
-    key-password: letmein
-    
 ---
 spring:
   h2:
