@@ -1,6 +1,5 @@
 package space.bumtiger.domain;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ import space.bumtiger.security.Provider;
 
 @Data
 @Table
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
 @AllArgsConstructor
 public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
