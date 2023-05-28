@@ -1,18 +1,37 @@
 package space.bumtiger.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import space.bumtiger.domain.BurgerIngredient;
 import space.bumtiger.domain.Ingredient;
 import space.bumtiger.domain.Ingredient.Type;
+import space.bumtiger.repository.BurgerRepository;
 import space.bumtiger.repository.IngredientRepository;
+import space.bumtiger.repository.UserRepository;
 
 @Configuration
 @Profile("test")
 public class TestConfig {
 
+	private BurgerRepository burgerRepository;
+	private UserRepository userRepository;
+	
+	private List<BurgerIngredient> convert2BurIng(
+			Ingredient ... ingredients) {
+		var result = new ArrayList<BurgerIngredient>();
+		
+		for (Ingredient ing : ingredients) {
+			result.add(new BurgerIngredient(ing.getId()));
+		}
+		return result;
+	}
+	
 	@Bean
 	CommandLineRunner loadIngredient(IngredientRepository repository) {
 		return args -> {
