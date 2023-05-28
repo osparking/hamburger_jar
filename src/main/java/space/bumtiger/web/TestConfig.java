@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import lombok.AllArgsConstructor;
 import space.bumtiger.domain.Burger;
@@ -20,6 +21,7 @@ import space.bumtiger.repository.IngredientRepository;
 import space.bumtiger.repository.UserRepository;
 
 @Configuration
+@Profile("test")
 @AllArgsConstructor
 public class TestConfig {
 
