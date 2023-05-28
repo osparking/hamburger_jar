@@ -11,7 +11,7 @@ credential:
 
 spring:
   profiles:
-    active: test
+    active: prod
     include: prod_sec
     
   application:
@@ -29,7 +29,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: production
+      on-profile: prod
   datasource:
     url: jdbc:mariadb://localhost:3306/hamburger
     username: burger
