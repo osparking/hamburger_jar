@@ -2,10 +2,12 @@ package space.bumtiger.api;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,4 +39,8 @@ public class BurgerApiCon {
 		return result;
 	}
 
+	@GetMapping("/{id}")
+	public Optional<Burger> burgerById(@PathVariable("id") Integer id) {
+		return burgerRepo.findById(id);
+	}
 }
