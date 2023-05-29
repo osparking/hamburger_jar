@@ -4,7 +4,10 @@ package space.bumtiger.api;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.codec.ResourceEncoder;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +43,14 @@ public class BurgerApiCon {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Burger> burgerById(@PathVariable("id") Integer id) {
-		return burgerRepo.findById(id);
+	public ResponseEntity<Burger> burgerById(@PathVariable("id") Integer id) {
+		var optBurger = burgerRepo.findById(id);
+
+		if (optBurger.isPresent()) {
+			return new ResponseEntity<>(optBurger.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
+	
 }
