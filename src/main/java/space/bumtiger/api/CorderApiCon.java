@@ -23,6 +23,14 @@ import space.bumtiger.repository.CorderRepository;
 @AllArgsConstructor
 public class CorderApiCon {
 	private CorderRepository orderRepo;
+	
+	@DeleteMapping("/orderId")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteOrder(@PathVariable("orderId") Integer orderId) {
+		try {
+			orderRepo.deleteById(orderId);
+		} catch(EmptyResultDataAccessException e) {}
+	}
 
 	@PatchMapping(path="/{orderId}", consumes="application/json") 
 	public Corder patchOrder(@PathVariable("orderId") Integer orderId,
