@@ -30,3 +30,19 @@ order by user asc, created_at desc;
 
 # 버거 테이블 열이름 변경
 ALTER TABLE hamburger.burger CHANGE `user` user_id int(11) DEFAULT NULL NULL COMMENT 'id of user who designed this burger';
+
+# 삭제할 (불완전한 자료 가진) 햄버거 수 검색
+select count(*) from hamburger.burger_ingredient bi
+join hamburger.burger bu on bu.id = bi.burger 
+where bu.user_id is null;
+
+# 햄버거 삭제 준비로 버거 재료 레코드 삭제
+delete from burger_ingredient
+where id in (
+	select bi.id from hamburger.burger_ingredient bi
+	join hamburger.burger bu on bu.id = bi.burger 
+	where bu.user_id is null);
+
+# 불완전 햄버거 레코드 삭제 
+DELETE FROM hamburger.burger
+WHERE user_id is null;
