@@ -11,29 +11,12 @@ credential:
 
 spring:
   profiles:
-    active: prod
+    active: 
+      -prod
     include: prod_sec
     
   application:
     name: burger_service
-
----
-logging:
-  level:
-    space:
-      bumtiger: WARN
-    root: INFO
-    org:
-      springframework:
-        security: DEBUG  
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:mariadb://localhost:3306/hamburger
-    username: burger
-    password: 4899
 
 ---
 spring:
@@ -64,3 +47,23 @@ logging:
       springframework:
         jdbc:
           core: TRACE
+          
+---
+logging:
+  level:
+    space:
+      bumtiger: WARN
+    root: INFO
+    org:
+      springframework:
+        security: DEBUG  
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mariadb://localhost:3306/hamburger
+    username: burger
+    password: 4899
+    driverClassName: org.mariadb.jdbc.Driver 
+
