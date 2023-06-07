@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import lombok.Data;
 
 @Data
 @Table
+@RestResource(rel = "orders", path="orders")
 public class Corder {
 
 	@Id
