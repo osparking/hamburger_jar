@@ -10,6 +10,10 @@ credential:
   ccExpiration: 12/26
 
 spring:
+  data:
+    rest:
+      base-path: /data-api
+      
   profiles:
     active: 
       -prod
