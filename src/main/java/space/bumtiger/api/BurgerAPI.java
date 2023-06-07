@@ -20,10 +20,11 @@ public class BurgerAPI {
 	private BurgerPageSortRepo burRepository;
 	
 	// @formatter:off
-	@GetMapping(value = "/burgers", params = { "size" })
+	@GetMapping(value = "/burgers", params = { "size", "page" })
 	public List<Burger> findAllBySortAndPage( 
-			@RequestParam("size") final int size) {
-    PageRequest pageable = PageRequest.of(0, size);
+			@RequestParam("size") final int size, 
+			@RequestParam("page") final int page) {
+    PageRequest pageable = PageRequest.of(page, size);
     Page<Burger> result = burRepository.findAll(pageable);
     if (!result.isEmpty())
       return result.getContent();
