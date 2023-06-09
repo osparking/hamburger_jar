@@ -1,17 +1,32 @@
 package space.bumtiger.domain;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @Table
-public class Ingredient {
+@AllArgsConstructor
+public class Ingredient implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	private final String id;
-	private final String name;
-	private final Type type;
+	private String id;
+	private String name;
+	private Type type;
+	
+	public Ingredient() {
+		super();
+		this.id = null;
+		this.name = null;
+		this.type = null;
+	}
 
 	public enum Type {
 		BREAD, PROTEIN, VEGGIES, CHEESE, SAUCE
