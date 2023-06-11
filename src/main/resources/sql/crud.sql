@@ -46,3 +46,8 @@ where id in (
 # 불완전 햄버거 레코드 삭제 
 DELETE FROM hamburger.burger
 WHERE user_id is null;
+
+# 새우(SHMP) 를 재료에 포함한 버거 수 검색
+SELECT count(*)
+FROM hamburger.ingredient
+where id = 'SHMP';
