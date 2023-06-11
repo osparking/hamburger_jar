@@ -1,8 +1,13 @@
-create table if not exists Ingredient (
-  id varchar(4) not null,
-  name varchar(25) not null,
-  type varchar(10) not null
-);
+-- hamburger.ingredient definition
+
+CREATE TABLE `ingredient` (
+  `id` char(4) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `type` varchar(40) NOT NULL,
+  `sn` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ingredient_un` (`sn`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE hamburger.burger_ingredient DROP FOREIGN KEY ingredient_ID_FK2;
 ALTER TABLE hamburger.burger_ingredient ADD CONSTRAINT ingredient_ID_FK2 FOREIGN KEY (ingredient) REFERENCES hamburger.ingredient(id) ON DELETE CASCADE ON UPDATE CASCADE;
