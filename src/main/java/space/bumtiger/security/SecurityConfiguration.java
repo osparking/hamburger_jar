@@ -37,6 +37,7 @@ public class SecurityConfiguration {
 				.and()
 					.successHandler(oAuth2LoginSuccessHandler)
 			);
+		http.httpBasic();
 		http.csrf().disable();
 		
 		return http.build();
