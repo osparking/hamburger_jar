@@ -1,6 +1,7 @@
 package space.bumtiger.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -46,7 +47,7 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
-	
+
 	@Autowired
 	private CustomOAuth2UserService oauth2UserService;
 
@@ -70,4 +71,20 @@ public class SecurityConfiguration {
 
 	}
 
+	private void createUserIfNotExists(UserRepository repository,
+			PasswordEncoder encoder, String username, String roles) {
+		if (null == repository.findByUsername(username)) {
+			repository.save(new User(username, encoder.encode("1234"), roles));
+		}
+	}
+
+	@Bean
+	ApplicationRunner dataLoader(UserRepository repository,
+			PasswordEncoder encoder) {
+		return args -> {
+			createUserIfNotExists(repository, encoder, "soap",
+					"ROLE_ADMIN,ROLE_USER");
+			createUserIfNotExists(repository, encoder, "bum", "ROLE_USER");
+		};
+	}
 }
