@@ -24,13 +24,15 @@ public class SecurityConfiguration {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
 					authorize -> authorize
-						.requestMatchers(HttpMethod.POST, "/api/ingredients").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.DELETE, "/api/ingredients/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/ingredients")
+							.hasAuthority("SCOPE_writeIngredients")
+						.requestMatchers(HttpMethod.DELETE, "/api//ingredients")
+							.hasAuthority("SCOPE_deleteIngredients")
 						.requestMatchers("/design", "/orders").hasRole("USER")
 						.requestMatchers("/ingredient/**").hasRole("ADMIN")
 						.requestMatchers("/", "/**").permitAll())
 			  .formLogin().loginPage("/login")
-				.and()
+			  .and()
 				.oauth2Login(oauth2 -> oauth2
 					.loginPage("/login")
 					.userInfoEndpoint()
@@ -38,13 +40,14 @@ public class SecurityConfiguration {
 				.and()
 					.successHandler(oAuth2LoginSuccessHandler)
 			);
+		
 		http.httpBasic();
 		http.csrf().disable();
 		
 		return http.build();
 	}
 	// @formatter:on
-
+	
 	@Autowired
 	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
