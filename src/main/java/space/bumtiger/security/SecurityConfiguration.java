@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/", "/**").permitAll())
 			  .formLogin().loginPage("/login")
 			  .and()
+		      .oauth2ResourceServer(oauth2 -> oauth2.jwt())
 				.oauth2Login(oauth2 -> oauth2
 					.loginPage("/login")
 					.userInfoEndpoint()
