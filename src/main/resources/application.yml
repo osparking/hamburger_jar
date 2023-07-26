@@ -15,8 +15,7 @@ spring:
       base-path: /data-api
       
   profiles:
-    active: 
-      -prod
+    active: "%spring.proflies.active%"
     include: prod_sec
     
   application:
