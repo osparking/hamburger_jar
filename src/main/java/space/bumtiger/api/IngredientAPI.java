@@ -38,9 +38,9 @@ public class IngredientAPI {
 		return repo.save(ingredient);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{sn}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteIngredient(@PathVariable("id") String ingredientId) {
-		repo.deleteById(ingredientId);
+	public void deleteIngredient(@PathVariable("sn") Long ingredientSN) {
+		repo.deleteById(ingredientSN);
 	}
 }
