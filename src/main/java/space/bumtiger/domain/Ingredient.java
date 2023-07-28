@@ -18,6 +18,7 @@ public class Ingredient implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	@Id
+	private Long sn;
 	private String name;
 	private Type type;
 	
@@ -26,6 +27,13 @@ public class Ingredient implements Serializable {
 		this.id = null;
 		this.name = null;
 		this.type = null;
+	}
+	
+	public Ingredient(String id, String name, Type type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
 	}
 
 	public enum Type {
