@@ -24,7 +24,8 @@ public class SecurityConfiguration {
 					authorize -> authorize
 						.requestMatchers("/design", "/orders").hasRole("USER")
 						.requestMatchers("/ingredient/**").hasRole("ADMIN")
-						.requestMatchers("/", "/**").permitAll())
+						.requestMatchers("/", "/**", "/h2-console/**")
+							.permitAll())
 			  .formLogin().loginPage("/login")
 				.and()
 				.oauth2Login(oauth2 -> oauth2
@@ -34,6 +35,7 @@ public class SecurityConfiguration {
 				.and()
 					.successHandler(oAuth2LoginSuccessHandler)
 			);
+		http.headers().frameOptions().disable();
 		http.csrf().disable();
 		
 		return http.build();
