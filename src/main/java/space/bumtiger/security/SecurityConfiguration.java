@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
 import space.bumtiger.domain.User;
@@ -23,8 +25,10 @@ public class SecurityConfiguration {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
 					authorize -> authorize
-						.requestMatchers(HttpMethod.POST, "/api/ingredients").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.DELETE, "/api/ingredients/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST,
+								"/api/ingredients").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,
+								"/api/ingredients/**").hasRole("ADMIN")
 						.requestMatchers("/design", "/orders").hasRole("USER")
 						.requestMatchers("/ingredient/**").hasRole("ADMIN")
 						.requestMatchers("/", "/**").permitAll())
@@ -37,6 +41,7 @@ public class SecurityConfiguration {
 				.and()
 					.successHandler(oAuth2LoginSuccessHandler)
 			);
+		http.headers().frameOptions().disable();
 		http.csrf().disable();
 		
 		return http.build();
@@ -45,7 +50,7 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
-	
+
 	@Autowired
 	private CustomOAuth2UserService oauth2UserService;
 
