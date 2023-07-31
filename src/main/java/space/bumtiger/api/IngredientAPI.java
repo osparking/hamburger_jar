@@ -22,6 +22,11 @@ import space.bumtiger.repository.IngredientRepository;
 public class IngredientAPI {
 	private IngredientRepository repo;
 
+	@GetMapping("/count")
+	public long countIngredients() {
+		return repo.count();
+	}
+	
 	@GetMapping
 	public Iterable<Ingredient> allIngredients() {
 		return repo.findAll();
