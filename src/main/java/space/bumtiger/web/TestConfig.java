@@ -49,17 +49,17 @@ public class TestConfig {
 			Ingredient 버거소스 = new Ingredient("BGSC", "버거소스", Type.SAUCE);
 			Ingredient 바베큐소스 = new Ingredient("BBSC", "바베큐소스", Type.SAUCE);
 			
-			ingRepo.save(번빵);
-			ingRepo.save(쌀빵);   
-			ingRepo.save(불고기);  
-			ingRepo.save(닭가슴살); 
-			ingRepo.save(새우);   
-			ingRepo.save(토마토);  
-			ingRepo.save(상추);   
-			ingRepo.save(체다치즈); 
-			ingRepo.save(모짜렐라치즈);
-			ingRepo.save(버거소스); 
-			ingRepo.save(바베큐소스);
+//			ingRepo.save(번빵);
+//			ingRepo.save(쌀빵);   
+//			ingRepo.save(불고기);  
+//			ingRepo.save(닭가슴살); 
+//			ingRepo.save(새우);   
+//			ingRepo.save(토마토);  
+//			ingRepo.save(상추);   
+//			ingRepo.save(체다치즈); 
+//			ingRepo.save(모짜렐라치즈);
+//			ingRepo.save(버거소스); 
+//			ingRepo.save(바베큐소스);
 
 			var hong = new User();
 			hong.setUsername("Kang");
