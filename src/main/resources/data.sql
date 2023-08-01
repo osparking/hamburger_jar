@@ -1,4 +1,4 @@
-insert into ingredient values
+insert into ingredient(ID, NAME, TYPE) values
 	('BNBD', '번빵', 'BREAD'),
 	('RCBD', '쌀빵', 'BREAD')	,
   ('BLGG', '불고기', 'PROTEIN'),   	

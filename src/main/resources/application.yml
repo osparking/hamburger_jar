@@ -8,15 +8,19 @@ logging:
 credential:
   ccNumber: 4263982640269299
   ccExpiration: 12/26
-
+  
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
   data:
     rest:
       base-path: /data-api
       
   profiles:
-    active: 
-      -prod
+    active: "@spring.profiles.active@"
     include: prod_sec
     
   application:
