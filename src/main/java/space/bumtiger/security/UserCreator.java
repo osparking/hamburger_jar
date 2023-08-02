@@ -1,6 +1,7 @@
 package space.bumtiger.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
@@ -14,7 +15,8 @@ public class UserCreator {
 	
 	@PostConstruct
 	public void init() {
-		User admin = new User("admin", "1234", 
+		User admin = new User("admin",
+				new BCryptPasswordEncoder().encode("1234"), 
 				"ROLE_ADMIN,ROLE_USER", true, null);
 		userRepository.save(admin);
 	}
