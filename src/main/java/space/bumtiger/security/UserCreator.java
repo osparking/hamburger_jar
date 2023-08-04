@@ -1,6 +1,7 @@
 package space.bumtiger.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import space.bumtiger.domain.User;
 import space.bumtiger.repository.UserRepository;
 
 @Component
+@Profile("test")
 public class UserCreator {
 	@Autowired
 	private UserRepository userRepository;
