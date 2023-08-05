@@ -1,6 +1,7 @@
 package space.bumtiger.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
 import space.bumtiger.domain.User;
@@ -20,6 +19,7 @@ import space.bumtiger.repository.UserRepository;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
+	
 	// @formatter:off
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
