@@ -1,3 +1,4 @@
+
 logging:
   file:
     name: d:/tmp/logs/Hamburger.log
@@ -27,6 +28,11 @@ spring:
     name: burger_service
 
 ---
+#profile-name: test
+security:
+  disable:
+    csrf: true
+    
 spring:
   h2:
     console:
@@ -55,7 +61,7 @@ logging:
       springframework:
         jdbc:
           core: TRACE
-          
+        
 ---
 logging:
   level:
