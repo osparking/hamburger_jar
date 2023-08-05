@@ -20,6 +20,9 @@ import space.bumtiger.repository.UserRepository;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 	
+	@Value("${security.disable.csrf}")
+	private boolean csrfDIsabled;
+	
 	// @formatter:off
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
