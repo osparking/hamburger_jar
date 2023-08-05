@@ -19,10 +19,10 @@ import space.bumtiger.repository.UserRepository;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
-	
+
 	@Value("${security.disable.csrf}")
 	private boolean csrfDIsabled;
-	
+
 	// @formatter:off
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,7 +45,10 @@ public class SecurityConfiguration {
 					.successHandler(oAuth2LoginSuccessHandler)
 			);
 		http.headers().frameOptions().disable();
-		http.csrf().disable();
+		
+		if (csrfDIsabled) {
+			http.csrf().disable();
+		}
 		
 		return http.build();
 	}
