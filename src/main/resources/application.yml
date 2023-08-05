@@ -27,6 +27,10 @@ spring:
   application:
     name: burger_service
 
+security:
+  disable:
+    csrf: false
+ 
 ---
 #profile-name: test
 security:
